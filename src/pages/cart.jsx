@@ -1,61 +1,63 @@
 import "../styles/cart.css";
+import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
 
 const Cart = () => {
+
+  console.log(JSON.parse(localStorage.getItem("cart")));
   return (
     <>
       <Navbar />
-      <h2 class="text-center">My Cart</h2>
+      <h2 className="text-center">My Cart</h2>
 
-      <div class="card w-75 container">
-        <div class="card-body row">
-          <div class="col-3 text-center m-auto mt-1">
+      {Object.entries(JSON.parse(localStorage.getItem("cart")).items).map(each=>{
+        return (<div className="card w-75 container">
+        <div className="card-body row">
+          <div className="col-3 text-center m-auto mt-1">
             <img
-              src="https://www.jquery-az.com/html/images/banana.jpg"
+              src={each[1].item.imagePath}
               alt="Food Item"
               width="95%"
             />
           </div>
-          <div class="col-6">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              With supporting text below as a natural lead-in to additional
-              contentWith supporting text below as a natural lead-in to
-              additional content With supporting text below as a natural lead-in
-              to additional contentWith supporting text below as a natural
-              lead-in to additional content With supporting text below as a
-              natural lead-in to additional content With supporting text below
-              as a natural lead-in to additional content.
+          <div className="col-6">
+            <h5 className="card-title">{each[1].item.title}</h5>
+            <p className="card-text">
+              {each[1].item.description}
             </p>
-            <a href="#" class="btn btn-default p-0">
+            <Link to="#" className="btn btn-default p-0" >
               <span>
                 <i
-                  class="fa fa-plus-square fa-flag-pos"
+                  className="fa fa-plus-square fa-flag-pos"
                   style={{ fontSize: "30px" }}
                 ></i>
               </span>
-            </a>
-            <a href="#" class="btn btn-default p-0 m-1">
+            </Link>
+            <Link to="#" className="btn btn-default p-0 m-1">
               <span>
                 <i
-                  class="fa fa-minus-square fa-flag"
+                  className="fa fa-minus-square fa-flag"
                   style={{ fontSize: "30px" }}
                 ></i>
               </span>
-            </a>
+            </Link>
           </div>
 
-          <div class="col-3 text-center">
-            <button type="button" class="btn btn-default m-2">
+          <div className="col-3 text-center">
+            <button type="button" className="btn btn-default m-2">
               <span>
-                <i class="fa fa-trash fa-flag" style={{ fontSize: "40px" }}></i>
+                <i className="fa fa-trash fa-flag" style={{ fontSize: "40px" }}></i>
               </span>
             </button>
-            <h5 class="text-center">1</h5>
-            <p class="text-center">Rs. 500</p>
+            <h5 className="text-center">{each[1].qty}</h5>
+            <p className="text-center">{"Rs. "+each[1].item.price}</p>
           </div>
         </div>
-      </div>
+      </div>);
+      })}
+
+      <button className="button m-2 btn-primary">Checkout</button>
+      
     </>
   );
 };
