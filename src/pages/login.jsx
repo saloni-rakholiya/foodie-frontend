@@ -1,10 +1,35 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useSWR from "swr";
+import Navbar from "../components/navbar";
+import Cart from "../models/cart";
 
 const LoginPage = () => {
+  // const { state: locationState } = useLocation();
+  // if (locationState == null) {
+  //   console.log("No state");
+  // } else {
+  //   console.log(locationState);
+  //   delete locationState.message;
+  //   console.log(locationState);
+  // }
   // return <h1>Hello</h1>;
+  const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const fetcher = async (url) => {
+    const res = await fetch(url, {
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    return res.json();
+  };
+  const { data, error } = useSWR("http://localhost:3001/checkauth", fetcher);
+  // const count = useAppSelector((state) => state.counter.value);
   const submitForm = async (e) => {
     e.preventDefault();
     const res = await fetch("http://localhost:3001/login", {
@@ -19,113 +44,19 @@ const LoginPage = () => {
     const json = await res.json();
     console.log(json);
   };
+  if (error) return <h1>Error</h1>;
+  if (!data) return <h1>Loading</h1>;
+  if (data.status) {
+    if (!localStorage.getItem("cart")) {
+      localStorage.setItem("cart", JSON.stringify(new Cart()));
+    }
+    navigate("/home");
+  }
+
   return (
     <>
       <body>
-        <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
-          <a
-            className="navbar-brand"
-            href="/home"
-            id="companyName"
-            style={{ color: "#E7F3FF", fontFamily: "Raleway, sans-serif" }}
-          >
-            <b>
-              <i
-                className="fa fa-heartbeat"
-                style={{ paddingRight: "7px" }}
-                aria-hidden="true"
-              ></i>
-              Foodie
-            </b>
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon">
-              <i className="fa fa-navicon" style={{ fontSize: "30px" }}></i>
-            </span>
-          </button>
-          <div
-            className="collapse navbar-collapse"
-            id="navbarSupportedContent"
-            style={{ marginRight: "5%" }}
-          >
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="/cart"
-                  style={{
-                    fontFamily: "Raleway, sans-serif",
-                    fontSize: "18px",
-                    paddingRight: "20px",
-                  }}
-                >
-                  Cart
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="/contact"
-                  style={{
-                    paddingRight: "20px",
-                    fontFamily: "Raleway, sans-serif",
-                    fontSize: "18px",
-                  }}
-                >
-                  Contact
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="/history"
-                  style={{
-                    fontFamily: "Raleway, sans-serif",
-                    paddingRight: "20px",
-                    fontSize: "18px",
-                  }}
-                >
-                  History
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="/about"
-                  style={{
-                    paddingRight: "20px",
-                    fontSize: "18px",
-                    fontFamily: "Raleway, sans-serif",
-                  }}
-                >
-                  About
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="/logout"
-                  style={{
-                    paddingRight: "10px",
-                    fontSize: "18px",
-                    fontFamily: "Raleway, sans-serif",
-                    paddingRight: "20px",
-                  }}
-                >
-                  Logout
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        <Navbar />
         <h3 className="text-center">Login</h3>
 
         <div>

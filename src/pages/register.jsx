@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import useSWR from "swr";
+import Navbar from "../components/navbar";
 
 const RegisterPage = () => {
   const [city, setCity] = useState("");
@@ -24,113 +26,33 @@ const RegisterPage = () => {
     console.log(json);
     navigate("/");
   };
+  const { data, error } = useSWR("http://localhost:3001/checkauth", (url) =>
+    fetch(url, {
+      mode: "cors",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .catch((err) => {
+        return { status: false };
+      })
+  );
+
+  if (!data) {
+    return <h1>Loading</h1>;
+  }
+  // console.log(data.status);
+  if (data.status) {
+    navigate("/", {
+      state: {
+        message: "Already logged in. Redirecting",
+      },
+    });
+  }
+
   return (
     <>
       <body>
-        <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
-          <a
-            className="navbar-brand"
-            href="/home"
-            id="companyName"
-            style={{ color: "#E7F3FF", fontFamily: "Raleway, sans-serif" }}
-          >
-            <b>
-              <i
-                className="fa fa-heartbeat"
-                style={{ paddingRight: "7px" }}
-                aria-hidden="true"
-              ></i>
-              Foodie
-            </b>
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon">
-              <i className="fa fa-navicon" style={{ fontSize: "30px" }}></i>
-            </span>
-          </button>
-          <div
-            className="collapse navbar-collapse"
-            id="navbarSupportedContent"
-            style={{ marginRight: "5%" }}
-          >
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="/cart"
-                  style={{
-                    fontFamily: "Raleway, sans-serif",
-                    fontSize: "18px",
-                    paddingRight: "20px",
-                  }}
-                >
-                  Cart
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="/contact"
-                  style={{
-                    paddingRight: "20px",
-                    fontFamily: "Raleway, sans-serif",
-                    fontSize: "18px",
-                  }}
-                >
-                  Contact
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="/history"
-                  style={{
-                    fontFamily: "Raleway, sans-serif",
-                    paddingRight: "20px",
-                    fontSize: "18px",
-                  }}
-                >
-                  History
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="/about"
-                  style={{
-                    paddingRight: "20px",
-                    fontSize: "18px",
-                    fontFamily: "Raleway, sans-serif",
-                  }}
-                >
-                  About
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="/logout"
-                  style={{
-                    paddingRight: "10px",
-                    fontSize: "18px",
-                    fontFamily: "Raleway, sans-serif",
-                    paddingRight: "20px",
-                  }}
-                >
-                  Logout
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        <Navbar />
         <h3 className="text-center">Register</h3>
 
         <form className="align-items-center text-center" onSubmit={submitForm}>
