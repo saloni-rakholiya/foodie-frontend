@@ -1,0 +1,19 @@
+.fa-flag:hover {
+    color: rgb(128, 4, 4);
+}
+
+.fa-flag {
+    color: red;
+}
+
+.fa-flag-pos:hover {
+    color: rgb(35, 53, 9);
+}
+
+.fa-flag-pos {
+    color: green;
+}
+
+p{
+    color: black;
+}
