@@ -14,9 +14,9 @@ const HomePage = () => {
     return res.json();
   };
   const [cart, setCart] = useState(new Cart());
+  const [filter, setFilter] = useState(0);
   useEffect(() => {
     const cart = localStorage.getItem("cart");
-    console.log(cart);
     if (cart) {
       setCart(JSON.parse(cart));
     }
@@ -43,9 +43,7 @@ const HomePage = () => {
     newCart.items[product._id].price =
       newCart.items[product._id].item.price * newCart.items[product._id].qty;
     newCart.totalPrice += product.price;
-    console.log(newCart);
     setCart(newCart);
-    // console.log(cart);
     localStorage.setItem("cart", JSON.stringify(newCart));
   };
   const removeClick = (product) => {
@@ -62,67 +60,98 @@ const HomePage = () => {
     setCart(newCart);
     localStorage.setItem("cart", JSON.stringify(newCart));
   };
+  let categories = data.products
+    .map(({ category }) => category)
+    .filter((value, index, self) => self.indexOf(value) === index);
+  categories.unshift("All");
 
   return (
     <>
       <>
         <Navbar />
+        <div className="d-flex bg-light pt-3 pb-3 justify-content-start">
+          {categories.map((category, ind) => {
+            return (
+              <span
+                className={`d-flex mr-2 ml-2 p-2 badge badge-pill btn ${
+                  ind === filter ? "badge-primary" : ""
+                }`}
+                onClick={() => {
+                  setFilter(ind);
+                }}
+              >
+                {category}
+              </span>
+            );
+          })}
+        </div>
         <div className="album py-5 bg-light">
           <div className="container">
             <div className="row">
-              {data.products.map((product) => {
-                const { _id, imagePath, title, description, price, category } =
-                  product;
-                return (
-                  <div className="col-md-4">
-                    <div className="card mb-4 box-shadow">
-                      <img
-                        className="card-img-top"
-                        src={imagePath}
-                        alt="Card image cap"
-                      />
-                      <div className="card-body">
-                        <p className="card-text">{title}</p>
-                        <p className="card-text">{description}</p>
-                        <p className="card-text">{price}</p>
-                        <p className="card-text">{category}</p>
-                        <div className="d-flex justify-content-between align-items-center">
-                          <div id="addToCartButton" className="btn-group">
-                            {cart.items[_id] == null ? (
-                              <button
-                                type="button"
-                                id={_id}
-                                className="btn btn-sm btn-outline-secondary"
-                                onClick={() => handleClick(product)}
-                              >
-                                Add To Cart
-                              </button>
-                            ) : (
-                              <>
+              {data.products
+                .filter((product) => {
+                  if (categories[filter] == "All") return product;
+                  if (product.category == categories[filter]) return product;
+                })
+                .map((product) => {
+                  const {
+                    _id,
+                    imagePath,
+                    title,
+                    description,
+                    price,
+                    category,
+                  } = product;
+                  return (
+                    <div className="col-md-4">
+                      <div className="card mb-4 box-shadow">
+                        <img
+                          className="card-img-top"
+                          src={imagePath}
+                          alt="Card image cap"
+                        />
+                        <div className="card-body">
+                          <p className="card-text">{title}</p>
+                          <p className="card-text">{description}</p>
+                          <p className="card-text">{price}</p>
+                          <p className="card-text">{category}</p>
+                          <div className="d-flex justify-content-between align-items-center">
+                            <div id="addToCartButton" className="btn-group">
+                              {cart.items[_id] == null ? (
                                 <button
-                                  className="btn btn-sm btn-outline-secondary"
-                                  onClick={() => removeClick(product)}
-                                >
-                                  {" "}
-                                  -{" "}
-                                </button>{" "}
-                                <p>{cart.items[_id].qty}</p>{" "}
-                                <button
+                                  type="button"
+                                  id={_id}
                                   className="btn btn-sm btn-outline-secondary"
                                   onClick={() => handleClick(product)}
                                 >
-                                  {" "}
-                                  +{" "}
+                                  Add To Cart
                                 </button>
-                              </>
-                            )}
+                              ) : (
+                                <>
+                                  <button
+                                    className="btn btn-sm btn-outline-secondary"
+                                    onClick={() => removeClick(product)}
+                                  >
+                                    {" "}
+                                    -{" "}
+                                  </button>{" "}
+                                  <p>{cart.items[_id].qty}</p>{" "}
+                                  <button
+                                    className="btn btn-sm btn-outline-secondary"
+                                    onClick={() => handleClick(product)}
+                                  >
+                                    {" "}
+                                    +{" "}
+                                  </button>
+                                </>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </div>
         </div>
