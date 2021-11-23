@@ -1,10 +1,16 @@
 import "../styles/album.css";
 import Navbar from "../components/navbar";
+import useSWR from "swr";
+import { fetcher } from "../utils";
 
 const About = () => {
+  const { data: isAuth, error: authError } = useSWR(
+    "http://localhost:3001/checkauth",
+    fetcher
+  );
   return (
     <>
-      <Navbar />
+      <Navbar isAdmin={isAuth.isAdmin} isLoggedIn={isAuth.status} />
       <h1>ABOUT</h1>
       <p style={{ color: "white" }}>
         Foodie is a world class restaurant, famous for its pizzas and known
@@ -17,4 +23,3 @@ const About = () => {
 };
 
 export default About;
-

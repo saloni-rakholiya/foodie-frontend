@@ -1,18 +1,16 @@
-import useSWR from "swr";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Cart from "../models/cart";
 import Navbar from "../components/navbar";
+import useSWR from "swr";
+import { fetcher } from "../utils";
 
 const HomePage = () => {
-  const fetcher = async (url) => {
-    const res = await fetch(url, {
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    return res.json();
-  };
+  const { data: isAuth, error: authError } = useSWR(
+    "http://localhost:3001/checkauth",
+    fetcher
+  );
+  const navigate = useNavigate();
   const [cart, setCart] = useState(new Cart());
   const [filter, setFilter] = useState(0);
   useEffect(() => {
@@ -24,6 +22,12 @@ const HomePage = () => {
   const { data, error } = useSWR("http://localhost:3001/getproducts", fetcher);
   if (error) {
     return <h1>Error</h1>;
+  }
+  if (!isAuth) {
+    return <h1>Loading</h1>;
+  }
+  if (isAuth.status === false) {
+    navigate("/");
   }
   if (!data) {
     return <h1>Loading</h1>;
@@ -64,11 +68,12 @@ const HomePage = () => {
     .map(({ category }) => category)
     .filter((value, index, self) => self.indexOf(value) === index);
   categories.unshift("All");
+  console.log(isAuth);
 
   return (
     <>
       <>
-        <Navbar />
+        <Navbar isAdmin={isAuth.isAdmin} isLoggedIn={isAuth.status} />
         <div className="d-flex bg-light pt-3 pb-3 justify-content-start">
           {categories.map((category, ind) => {
             return (
@@ -90,8 +95,8 @@ const HomePage = () => {
             <div className="row">
               {data.products
                 .filter((product) => {
-                  if (categories[filter] == "All") return product;
-                  if (product.category == categories[filter]) return product;
+                  if (categories[filter] === "All") return product;
+                  if (product.category === categories[filter]) return product;
                 })
                 .map((product) => {
                   const {

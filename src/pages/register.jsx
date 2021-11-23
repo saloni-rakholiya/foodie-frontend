@@ -42,10 +42,10 @@ const RegisterPage = () => {
   }
   // console.log(data.status);
   if (data.status) {
-    navigate("/", {
-      state: {
-        message: "Already logged in. Redirecting",
-      },
+    navigate("/home", {
+      // state: {
+      //   message: "Already logged in. Redirecting",
+      // },
     });
   }
 

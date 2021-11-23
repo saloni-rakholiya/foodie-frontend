@@ -1,10 +1,16 @@
 import Navbar from "../components/navbar";
 import "../styles/contact.css";
+import useSWR from "swr";
+import { fetcher } from "../utils";
 
 const Contact = () => {
+  const { data: isAuth, error: authError } = useSWR(
+    "http://localhost:3001/checkauth",
+    fetcher
+  );
   return (
     <>
-      <Navbar />
+      <Navbar isAdmin={isAuth.isAdmin} isLoggedIn={isAuth.status} />
       <div>
         <h1 className="text-center" style={{ color: "white" }}>
           Contact Us
@@ -65,4 +71,3 @@ const Contact = () => {
 };
 
 export default Contact;
-

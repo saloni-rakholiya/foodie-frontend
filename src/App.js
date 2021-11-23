@@ -6,7 +6,8 @@ import HomePage from "./pages/home";
 import About from "./pages/about";
 import Contact from "./pages/contact";
 import Cart from "./pages/cart";
-import History from "./pages/history"
+import History from "./pages/history";
+import Admin from "./pages/admin";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/contact" exact element={<Contact />} />
           <Route path="/cart" exact element={<Cart />} />
           <Route path="/history" exact element={<History />} />
+          <Route path="/admin" exact element={<Admin />} />
         </Routes>
       </Router>
     </div>
