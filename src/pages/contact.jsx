@@ -4,13 +4,9 @@ import useSWR from "swr";
 import { fetcher } from "../utils";
 
 const Contact = () => {
-  const { data: isAuth, error: authError } = useSWR(
-    "http://localhost:3001/checkauth",
-    fetcher
-  );
   return (
     <>
-      <Navbar isAdmin={isAuth.isAdmin} isLoggedIn={isAuth.status} />
+      <Navbar/>
       <div>
         <h1 className="text-center" style={{ color: "white" }}>
           Contact Us
