@@ -5,7 +5,7 @@ import RegisterPage from "./pages/register";
 import HomePage from "./pages/home";
 import About from "./pages/about";
 import Contact from "./pages/contact";
-import Cart from "./pages/cart";
+import CartPage from "./pages/cart";
 import History from "./pages/history";
 import Admin from "./pages/admin";
 
@@ -19,7 +19,7 @@ function App() {
           <Route path="/home" exact element={<HomePage />} />
           <Route path="/about" exact element={<About />} />
           <Route path="/contact" exact element={<Contact />} />
-          <Route path="/cart" exact element={<Cart />} />
+          <Route path="/cart" exact element={<CartPage />} />
           <Route path="/history" exact element={<History />} />
           <Route path="/admin" exact element={<Admin />} />
         </Routes>
