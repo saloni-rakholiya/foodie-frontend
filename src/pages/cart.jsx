@@ -24,19 +24,19 @@ const CartPage = () => {
     navigate("/");
   }
 
-  const deleteItem=(product)=>{
+  const deleteItem = (product) => {
     const id = product._id;
     const newCart = { ...cart };
-    newCart.items[id].price =0;
-    newCart.totalQty-=newCart.items[id].qty;
-    newCart.totalPrice -= newCart.items[id].item.price*newCart.items[id].qty;
-    newCart.items[id].qty=0;
+    newCart.items[id].price = 0;
+    newCart.totalQty -= newCart.items[id].qty;
+    newCart.totalPrice -= newCart.items[id].item.price * newCart.items[id].qty;
+    newCart.items[id].qty = 0;
     delete newCart.items[id];
     setCart(newCart);
     localStorage.setItem("cart", JSON.stringify(newCart));
-  }
+  };
 
-    const handleClick = (product) => {
+  const handleClick = (product) => {
     const newCart = { ...cart };
     newCart.totalQty += 1;
     let storedItem = newCart.items[product._id];
@@ -55,7 +55,7 @@ const CartPage = () => {
     localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
-    const removeClick = (product) => {
+  const removeClick = (product) => {
     const id = product._id;
     const newCart = { ...cart };
     newCart.items[id].qty--;
@@ -70,7 +70,7 @@ const CartPage = () => {
     localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
-  const checkoutcart=async ()=>{
+  const checkoutcart = async () => {
     const res = await fetch("http://localhost:3001/checkout", {
       method: "POST",
       mode: "cors",
@@ -82,15 +82,23 @@ const CartPage = () => {
     });
     const json = await res.json();
     console.log(json);
+    localStorage.setItem("cart", JSON.stringify(new Cart()));
+    setCart(new Cart());
   };
   return (
     <>
       <Navbar isAdmin={data.isAdmin} isLoggedIn={true} />
-      {cart.totalQty>0 &&
-      <h2 className="text-center" style={{color:"white"}}>My Cart</h2>}
+      {cart.totalQty > 0 && (
+        <h2 className="text-center" style={{ color: "white" }}>
+          My Cart
+        </h2>
+      )}
 
-      {cart.totalQty<=0 &&
-      <h1 className="text-center m-5" style={{color:"white"}}>Cart is empty!</h1>}
+      {cart.totalQty <= 0 && (
+        <h1 className="text-center m-5" style={{ color: "white" }}>
+          Cart is empty!
+        </h1>
+      )}
 
       {Object.entries(JSON.parse(localStorage.getItem("cart")).items).map(
         (each) => {
@@ -107,7 +115,10 @@ const CartPage = () => {
                 <div className="col-6">
                   <h5 className="card-title">{each[1].item.title}</h5>
                   <p className="card-text">{each[1].item.description}</p>
-                  <button onClick={() => handleClick(each[1].item)} className="btn btn-default p-0">
+                  <button
+                    onClick={() => handleClick(each[1].item)}
+                    className="btn btn-default p-0"
+                  >
                     <span>
                       <i
                         className="fa fa-plus-square fa-flag-pos"
@@ -115,7 +126,10 @@ const CartPage = () => {
                       ></i>
                     </span>
                   </button>
-                  <button onClick={() => removeClick(each[1].item)} className="btn btn-default p-0 m-1">
+                  <button
+                    onClick={() => removeClick(each[1].item)}
+                    className="btn btn-default p-0 m-1"
+                  >
                     <span>
                       <i
                         className="fa fa-minus-square fa-flag"
@@ -126,7 +140,11 @@ const CartPage = () => {
                 </div>
 
                 <div className="col-3 text-center">
-                  <button onClick={() => deleteItem(each[1].item)} type="button" className="btn btn-default m-2">
+                  <button
+                    onClick={() => deleteItem(each[1].item)}
+                    type="button"
+                    className="btn btn-default m-2"
+                  >
                     <span>
                       <i
                         className="fa fa-trash fa-flag"
@@ -142,13 +160,24 @@ const CartPage = () => {
           );
         }
       )}
-      {cart.totalQty>0 &&
-      <div style={{color:"white"}}>Total items number: {cart.totalQty}</div>}
-      {cart.totalQty>0 &&
-      <div style={{color:"white"}}>Total price: {cart.totalPrice}</div>}
-      {cart.totalQty>0 &&
-      <button onClick={() => checkoutcart()} className="btn btn-primary p-2 m-4">Checkout</button>}
-     
+      {cart.totalQty > 0 && (
+        <div style={{ color: "white" }}>
+          Total items number: {cart.totalQty}
+        </div>
+      )}
+      {cart.totalQty > 0 && (
+        <div style={{ color: "white" }}>Total price: {cart.totalPrice}</div>
+      )}
+      {cart.totalQty > 0 && (
+        <button
+          onClick={() => {
+            checkoutcart();
+          }}
+          className="btn btn-primary p-2 m-4"
+        >
+          Checkout
+        </button>
+      )}
     </>
   );
 };
