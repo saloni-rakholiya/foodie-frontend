@@ -32,6 +32,7 @@ const HomePage = () => {
   if (!data) {
     return <h1>Loading</h1>;
   }
+  console.log(data.products);
   const handleClick = (product) => {
     const newCart = { ...cart };
     newCart.totalQty += 1;
