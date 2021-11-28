@@ -4,9 +4,19 @@ import useSWR from "swr";
 import { fetcher } from "../utils";
 
 const Contact = () => {
+  const { data: isAuth, error: authError } = useSWR(
+    "http://localhost:3001/checkauth",
+    fetcher
+  );
+  if (!isAuth) {
+    return <h1>Loading</h1>;
+  }
+  if(authError) {
+    return <h1>Error</h1>
+  }
   return (
     <>
-      <Navbar/>
+      <Navbar isLoggedIn={isAuth.status} isAdmin={isAuth.isAdmin} />
       <div>
         <h1 className="text-center" style={{ color: "white" }}>
           Contact Us
@@ -55,7 +65,6 @@ const Contact = () => {
               className="point japon tippy"
               title="<p className='text-center' style='color:white'>Japon</br>+1234567890</p>"
             ></div>
-
           </div>
         </div>
       </div>

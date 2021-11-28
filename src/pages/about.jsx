@@ -8,6 +8,12 @@ const About = () => {
     "http://localhost:3001/checkauth",
     fetcher
   );
+  if (!isAuth) {
+    return <h1>Loading</h1>;
+  }
+  if (authError) {
+    return <h1>Error</h1>;
+  }
   return (
     <>
       <Navbar isAdmin={isAuth.isAdmin} isLoggedIn={isAuth.status} />

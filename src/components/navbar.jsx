@@ -96,6 +96,7 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
                 navigate("/");
               }}
               style={thisStyle}
+              type="button"
             >
               Logout
             </li>
