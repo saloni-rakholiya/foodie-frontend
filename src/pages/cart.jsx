@@ -70,11 +70,27 @@ const CartPage = () => {
     localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
-
+  const checkoutcart=async ()=>{
+    const res = await fetch("http://localhost:3001/checkout", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(JSON.parse(localStorage.getItem("cart"))),
+    });
+    const json = await res.json();
+    console.log(json);
+  };
   return (
     <>
       <Navbar isAdmin={data.isAdmin} isLoggedIn={true} />
-      <h2 className="text-center">My Cart</h2>
+      {cart.totalQty>0 &&
+      <h2 className="text-center" style={{color:"white"}}>My Cart</h2>}
+
+      {cart.totalQty<=0 &&
+      <h1 className="text-center m-5" style={{color:"white"}}>Cart is empty!</h1>}
 
       {Object.entries(JSON.parse(localStorage.getItem("cart")).items).map(
         (each) => {
@@ -126,9 +142,13 @@ const CartPage = () => {
           );
         }
       )}
-      <div style={{color:"white"}}>Total items number: {cart.totalQty}</div>
-      <div style={{color:"white"}}>Total price: {cart.totalPrice}</div>
-      <button className="button m-2 btn-primary">Checkout</button>
+      {cart.totalQty>0 &&
+      <div style={{color:"white"}}>Total items number: {cart.totalQty}</div>}
+      {cart.totalQty>0 &&
+      <div style={{color:"white"}}>Total price: {cart.totalPrice}</div>}
+      {cart.totalQty>0 &&
+      <button onClick={() => checkoutcart()} className="btn btn-primary p-2 m-4">Checkout</button>}
+     
     </>
   );
 };
