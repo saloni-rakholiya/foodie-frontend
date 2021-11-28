@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import Navbar from "../components/navbar";
+import Loading from "../components/loader";
 
 const RegisterPage = () => {
   const [city, setCity] = useState("");
@@ -38,7 +39,7 @@ const RegisterPage = () => {
   );
 
   if (!data) {
-    return <h1>Loading</h1>;
+    return <Loading />;
   }
   // console.log(data.status);
   if (data.status) {

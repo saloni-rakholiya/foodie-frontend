@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import Loading from "../components/loader";
 
 const AddItem = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const AddItem = () => {
     return <h1>Error</h1>;
   }
   if (!isAuth) {
-    return <h1>Loading</h1>;
+    return <Loading />;
   }
   if (!isAuth.status) {
     navigate("/");
@@ -64,90 +65,93 @@ const AddItem = () => {
     } catch (err) {}
   };
   return (
-    <form onSubmit={submitForm} className="align-items-center text-center">
-      <div className="form-row text-center text-center">
-        <div className="form-group col-md-6 text-center m-auto p-2">
-          <label for="title">Title</label>
-          <input
-            type="text"
-            className="form-control"
-            id="title"
-            name="title"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
+    <>
+      <Navbar isLoggedIn={true} isAdmin={true} />
+      <form onSubmit={submitForm} className="align-items-center text-center">
+        <div className="form-row text-center text-center">
+          <div className="form-group col-md-6 text-center m-auto p-2">
+            <label for="title">Title</label>
+            <input
+              type="text"
+              className="form-control"
+              id="title"
+              name="title"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
+          </div>
         </div>
-      </div>
-      <div className="form-row text-center">
-        <div className="form-group col-md-6 text-center m-auto p-2">
-          <label for="description">Description</label>
-          <input
-            type="text"
-            className="form-control"
-            id="description"
-            name="description"
-            placeholder="Description"
-            value={description}
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-          />
+        <div className="form-row text-center">
+          <div className="form-group col-md-6 text-center m-auto p-2">
+            <label for="description">Description</label>
+            <input
+              type="text"
+              className="form-control"
+              id="description"
+              name="description"
+              placeholder="Description"
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
+            />
+          </div>
         </div>
-      </div>
-      <div className="form-row text-center">
-        <div className="form-group col-md-6 text-center m-auto p-2">
-          <label for="price">Price</label>
-          <input
-            type="number"
-            className="form-control"
-            id="price"
-            name="price"
-            placeholder="Price"
-            value={price}
-            onChange={(e) => {
-              setPrice(e.target.value);
-            }}
-          />
+        <div className="form-row text-center">
+          <div className="form-group col-md-6 text-center m-auto p-2">
+            <label for="price">Price</label>
+            <input
+              type="number"
+              className="form-control"
+              id="price"
+              name="price"
+              placeholder="Price"
+              value={price}
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
+            />
+          </div>
         </div>
-      </div>
-      <div className="form-row text-center">
-        <div className="form-group col-md-6 text-center m-auto p-2">
-          <label for="category">Category</label>
-          <input
-            type="text"
-            className="form-control"
-            id="category"
-            name="category"
-            placeholder="Category"
-            value={category}
-            onChange={(e) => {
-              setCategory(e.target.value);
-            }}
-          />
+        <div className="form-row text-center">
+          <div className="form-group col-md-6 text-center m-auto p-2">
+            <label for="category">Category</label>
+            <input
+              type="text"
+              className="form-control"
+              id="category"
+              name="category"
+              placeholder="Category"
+              value={category}
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+            />
+          </div>
         </div>
-      </div>
-      <div className="form-row text-center">
-        <div className="form-group col-md-6 text-center m-auto p-2">
-          <label for="file">Image</label>
-          <input
-            type="file"
-            className="form-control"
-            id="file"
-            name="file"
-            placeholder="Image"
-            onChange={(e) => {
-              setFile(e.target.files[0]);
-            }}
-          />
+        <div className="form-row text-center">
+          <div className="form-group col-md-6 text-center m-auto p-2">
+            <label for="file">Image</label>
+            <input
+              type="file"
+              className="form-control"
+              id="file"
+              name="file"
+              placeholder="Image"
+              onChange={(e) => {
+                setFile(e.target.files[0]);
+              }}
+            />
+          </div>
         </div>
-      </div>
-      <button type="submit" className="btn btn-dark m-1">
-        Sign in
-      </button>
-    </form>
+        <button type="submit" className="btn btn-dark m-1">
+          Sign in
+        </button>
+      </form>
+    </>
   );
 };
 

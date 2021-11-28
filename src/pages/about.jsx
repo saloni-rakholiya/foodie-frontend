@@ -2,6 +2,7 @@ import "../styles/album.css";
 import Navbar from "../components/navbar";
 import useSWR from "swr";
 import { fetcher } from "../utils";
+import Loading from "../components/loader";
 
 const About = () => {
   const { data: isAuth, error: authError } = useSWR(
@@ -9,7 +10,7 @@ const About = () => {
     fetcher
   );
   if (!isAuth) {
-    return <h1>Loading</h1>;
+    return <Loading />;
   }
   if (authError) {
     return <h1>Error</h1>;

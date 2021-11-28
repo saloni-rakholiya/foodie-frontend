@@ -2,6 +2,7 @@ import Navbar from "../components/navbar";
 import "../styles/contact.css";
 import useSWR from "swr";
 import { fetcher } from "../utils";
+import Loading from "../components/loader";
 
 const Contact = () => {
   const { data: isAuth, error: authError } = useSWR(
@@ -9,10 +10,10 @@ const Contact = () => {
     fetcher
   );
   if (!isAuth) {
-    return <h1>Loading</h1>;
+    return <Loading />;
   }
-  if(authError) {
-    return <h1>Error</h1>
+  if (authError) {
+    return <h1>Error</h1>;
   }
   return (
     <>

@@ -2,6 +2,7 @@ import Navbar from "../components/navbar";
 import useSWR from "swr";
 import { fetcher } from "../utils";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/loader";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const Admin = () => {
     fetcher
   );
   if (!isAuth) {
-    return <h1>Loading</h1>;
+    return <Loading />;
   }
   if (!isAuth.status) {
     navigate("/");
@@ -40,7 +41,7 @@ const Admin = () => {
     navigate("/home");
   }
   if (!orders) {
-    return <h1>Loading</h1>;
+    return <Loading />;
   }
   if (productError) {
     return <h1>Error</h1>;

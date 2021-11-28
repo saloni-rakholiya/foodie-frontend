@@ -4,6 +4,7 @@ import Cart from "../models/cart";
 import { useNavigate } from "react-router-dom";
 import { fetcher } from "../utils";
 import useSWR from "swr";
+import Loading from "../components/loader";
 
 const CheckoutPage = () => {
   const [cart, setCart] = useState(new Cart());
@@ -17,7 +18,7 @@ const CheckoutPage = () => {
   const { data, error } = useSWR("http://localhost:3001/checkauth", fetcher);
   const navigate = useNavigate();
   if (!data) {
-    return <h1>Loading</h1>;
+    return <Loading />;
   }
   if (!data.status) {
     navigate("/");
@@ -26,7 +27,7 @@ const CheckoutPage = () => {
   return (
     <>
       <Navbar isAdmin={data.isAdmin} isLoggedIn={true} />
-     <h1 style={{color:"white"}}>Hello</h1>
+      <h1 style={{ color: "white" }}>Hello</h1>
     </>
   );
 };

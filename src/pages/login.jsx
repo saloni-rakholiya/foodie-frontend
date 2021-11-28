@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import useSWR from "swr";
 import Navbar from "../components/navbar";
 import Cart from "../models/cart";
+import Loading from "../components/loader";
 
 const LoginPage = () => {
   // const { state: locationState } = useLocation();
@@ -18,6 +19,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [clicked, setClicked] = useState(false);
   const fetcher = async (url) => {
     const res = await fetch(url, {
       mode: "cors",
@@ -31,6 +33,7 @@ const LoginPage = () => {
   const { data, error } = useSWR("http://localhost:3001/checkauth", fetcher);
   // const count = useAppSelector((state) => state.counter.value);
   const submitForm = async (e) => {
+    setClicked(true);
     e.preventDefault();
     const res = await fetch("http://localhost:3001/login", {
       method: "POST",
@@ -42,15 +45,26 @@ const LoginPage = () => {
       credentials: "include",
     });
     const json = await res.json();
+    if (!json.status) {
+      setClicked(false);
+    } else {
+      if (!localStorage.getItem(`cart_${json.id}`)) {
+        localStorage.setItem(`cart_${json.id}`, JSON.stringify(new Cart()));
+      }
+      navigate("/home");
+    }
     console.log(json);
   };
   if (error) return <h1>Error</h1>;
-  if (!data) return <h1>Loading</h1>;
+  if (!data) return <Loading />;
   if (data.status) {
-    if (!localStorage.getItem("cart")) {
-      localStorage.setItem("cart", JSON.stringify(new Cart()));
+    if (!localStorage.getItem(`cart_${data.id}`)) {
+      localStorage.setItem(`cart_${data.id}`, JSON.stringify(new Cart()));
     }
     navigate("/home");
+  }
+  if (clicked) {
+    return <Loading />;
   }
 
   return (
