@@ -10,6 +10,7 @@ import History from "./pages/history";
 import Admin from "./pages/admin";
 import CheckoutPage from "./pages/checkout";
 import WelcomePage from "./pages/welcome";
+import AddItem from "./pages/addItem";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/admin" exact element={<Admin />} />
           <Route path="/checkout" exact element={<CheckoutPage />} />
           <Route path="/welcome" exact element={<WelcomePage />} />
+          <Route path="/addItem" exact element={<AddItem />} />
         </Routes>
       </Router>
     </div>
