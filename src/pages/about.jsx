@@ -18,8 +18,8 @@ const About = () => {
   return (
     <>
       <Navbar isAdmin={isAuth.isAdmin} isLoggedIn={isAuth.status} />
-      <h1>ABOUT</h1>
-      <p style={{ color: "white" }}>
+      <h1 className="mt-5">ABOUT</h1>
+      <p className="m-auto p-5 w-50" style={{ color: "white" }}>
         Foodie is a world class restaurant, famous for its pizzas and known
         highly for its great and fast online service. Started by a group of
         friends, they ensure both offline and online service is equally

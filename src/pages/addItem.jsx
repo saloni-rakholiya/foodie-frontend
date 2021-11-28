@@ -56,7 +56,6 @@ const AddItem = () => {
         body: formdata,
       });
       const json = await res.json();
-      console.log(json);
       setTitle("");
       setDescription("");
       setPrice(0);

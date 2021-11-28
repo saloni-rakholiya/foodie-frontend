@@ -83,7 +83,7 @@ const CartPage = () => {
       body: JSON.stringify(JSON.parse(localStorage.getItem(`cart_${data.id}`))),
     });
     const json = await res.json();
-    console.log(json);
+    // console.log(json);
     localStorage.setItem(`cart_${data.id}`, JSON.stringify(new Cart()));
     setCart(new Cart());
   };

@@ -33,7 +33,7 @@ const HomePage = () => {
   if (!data) {
     return <Loading />;
   }
-  console.log(data.products);
+  // console.log(data.products);
   const handleClick = (product) => {
     const newCart = { ...cart };
     newCart.totalQty += 1;
@@ -70,7 +70,7 @@ const HomePage = () => {
     .map(({ category }) => category)
     .filter((value, index, self) => self.indexOf(value) === index);
   categories.unshift("All");
-  console.log(isAuth);
+  // console.log(isAuth);
 
   return (
     <>

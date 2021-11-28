@@ -53,7 +53,7 @@ const LoginPage = () => {
       }
       navigate("/home");
     }
-    console.log(json);
+    // console.log(json);
   };
   if (error) return <h1>Error</h1>;
   if (!data) return <Loading />;
@@ -71,7 +71,7 @@ const LoginPage = () => {
     <>
       <body>
         <Navbar />
-        <h3 className="text-center">Login</h3>
+        <h3 className="text-center mt-5" style={{color:"white"}}>Login</h3>
 
         <div>
           <form
@@ -80,10 +80,10 @@ const LoginPage = () => {
           >
             <div className="form-row text-center text-center">
               <div className="form-group col-md-6 text-center m-auto p-2">
-                <label for="username">Email</label>
+                <label for="username" style={{color:"white"}}>Email</label>
                 <input
                   type="email"
-                  className="form-control"
+                  className="form-control mb-3"
                   id="username"
                   name="username"
                   placeholder="Email"
@@ -96,7 +96,7 @@ const LoginPage = () => {
             </div>
             <div className="form-row text-center">
               <div className="form-group col-md-6 text-center m-auto p-2">
-                <label for="password">Password</label>
+                <label for="password" style={{color:"white"}}>Password</label>
                 <input
                   type="password"
                   className="form-control"
@@ -115,8 +115,8 @@ const LoginPage = () => {
             </button>
           </form>
 
-          <p className="text-center">
-            Don't Have an Account? <Link to="/register">Click Here</Link> to
+          <p className="text-center" style={{color:"white"}}>
+            Don't Have an Account? <Link to="/register" style={{color:"#88DDFF"}}>Click Here</Link> to
             Create One!
           </p>
         </div>

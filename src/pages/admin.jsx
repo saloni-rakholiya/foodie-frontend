@@ -1,11 +1,14 @@
 import Navbar from "../components/navbar";
 import useSWR from "swr";
 import { fetcher } from "../utils";
+import "../styles/album.css";
+import "../styles/admin.css";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/loader";
 
 const Admin = () => {
   const navigate = useNavigate();
+
   const changeStatus = async (id, status) => {
     try {
       await fetch("http://localhost:3001/changeStatus", {
@@ -21,7 +24,7 @@ const Admin = () => {
       console.log(err);
     }
     // const json = await res.json();
-    // console.log(json);
+    // console.log(json); 
   };
   const { data: isAuth, error: authError } = useSWR(
     "http://localhost:3001/checkauth",
@@ -54,12 +57,15 @@ const Admin = () => {
   return (
     <>
       <Navbar isAdmin={true} isLoggedIn={true} />
-      <div className="album py-5 bg-light">
-        <div className="container">
+      <div className="album py-5 bg-dark">
+        <h1 style={{color:"white"}}> <b>Admin Page</b></h1>
+        <div className="container bg-dark">
           <ul className="list-group">
             {orders.orders.map((order, ind) => {
+              console.log(order);
+              console.log(ind);
               return (
-                <li className="list-group-item">
+                <li className="list-group-item m-3">
                   <div
                     className="card-text"
                     data-toggle="collapse"
@@ -67,12 +73,15 @@ const Admin = () => {
                     // aria-controls="1"
                     type="button"
                   >
-                    ORDER ID: {order._id}
+                    <p className="m-1" style={{color:"#6D6D6D"}}><small>{order._id}</small></p>
+                    <h4>
+                    View full order!
+                    </h4>
                   </div>
-                  <div className="row d-flex justify-content-between">
+                  <div className="row justify-content-center align-items-center">
                     {["Preparing", "On the Way", "Delivered"].map((status) => (
                       <div
-                        className={`d-flex justify-content-center card-text ${
+                        className={`d-flex m-2 justify-content-center card-text ${
                           order[
                             {
                               Preparing: "preparing",
@@ -80,8 +89,8 @@ const Admin = () => {
                               Delivered: "delivered",
                             }[status]
                           ]
-                            ? "bg-primary"
-                            : "bg-secondary"
+                            ? "bg-success"
+                            : "bg-danger"
                         }`}
                         style={thisStyle}
                       >
@@ -91,7 +100,7 @@ const Admin = () => {
                       </div>
                     ))}
                   </div>
-                  <div className="dropdown">
+                  <div className="dropdown m-3">
                     <button
                       class="btn btn-secondary dropdown-toggle"
                       type="button"
@@ -128,13 +137,13 @@ const Admin = () => {
                   </div>
                   <div className="collapse" id={`a${ind}`}>
                     {Object.entries(order.cart.items).map(([key, c]) => {
-                      console.log(key, c);
+                      // console.log(key, c);
 
                       const { title } = c.item;
                       return (
-                        <div className="col-md-4">
+                        <div className="col m-auto">
                           <div className="card mb-4 box-shadow">
-                            <div className="card-body">
+                            <div className="card-body" style={{backgroundColor:"#D9D9D9"}}>
                               <p className="card-text">{title}</p>
                               <p className="card-text">Qty: {c.qty}</p>
                               <p className="card-text">Price: {c.price}</p>
