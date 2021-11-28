@@ -14,7 +14,7 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
     <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
       <Link
         className="navbar-brand"
-        to="/home"
+        to="/welcome"
         id="companyName"
         style={{ color: "#E7F3FF", fontFamily: "Raleway, sans-serif" }}
       >
@@ -46,6 +46,11 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
         style={{ marginRight: "5%" }}
       >
         <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/home" style={thisStyle}>
+              Menu
+            </Link>
+          </li>
           {isLoggedIn ? (
             <li className="nav-item">
               <Link className="nav-link" to="/cart" style={thisStyle}>
