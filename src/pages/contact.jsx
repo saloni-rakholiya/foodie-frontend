@@ -55,10 +55,7 @@ const Contact = () => {
               className="point japon tippy"
               title="<p className='text-center' style='color:white'>Japon</br>+1234567890</p>"
             ></div>
-            <div
-              className="point australia tippy"
-              title="<p className='text-center' style='color:white'>Australia</br>+1234567890</p>"
-            ></div>
+
           </div>
         </div>
       </div>
