@@ -3,6 +3,7 @@ import "../styles/contact.css";
 import useSWR from "swr";
 import { fetcher } from "../utils";
 import Loading from "../components/loader";
+import ReactToolTip from "react-tooltip";
 
 const Contact = () => {
   const { data: isAuth, error: authError } = useSWR(
@@ -28,47 +29,76 @@ const Contact = () => {
             <img src="http://res.cloudinary.com/slzr/image/upload/v1500321012/world-map-1500_vvekl5.png" />
             <div
               className="point venezuela tippy"
-              title="<p className='text-center' style='color:white'>Venezuela</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Venezuela</br>+1234567890</p>"
+              data-for="a_1"
+              data-html={true}
             ></div>
             <div
               className="point brasil tippy"
-              title="<p className='text-center' style='color:white'>Brasil </br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Brasil </br>+1234567890</p>"
+              data-html={true}
+              data-for="a_2"
             ></div>
             <div
               className="point argentina tippy"
-              title="<p className='text-center' style='color:white'>Argentina </br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Argentina </br>+1234567890</p>"
+              data-html={true}
+              data-for="a_3"
             ></div>
             <div
               className="point mexico tippy"
-              title="<p className='text-center' style='color:white'>Mexico </br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Mexico </br>+1234567890</p>"
+              data-html={true}
+              data-for="a_3"
             ></div>
             <div
               className="point usa tippy"
-              title="<p className='text-center' style='color:white'>Estados Unidos</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Estados Unidos</br>+1234567890</p>"
+              data-html={true}
+              data-for="a_4"
             ></div>
             <div
               className="point arabia tippy"
-              title="<p className='text-center' style='color:white'>Arabia Saudi</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Arabia Saudi</br>+1234567890</p>"
+              data-html={true}
+              data-for="a_5"
             ></div>
             <div
               className="point turquia tippy"
-              title="<p className='text-center' style='color:white'>Turquía</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Turquía</br>+1234567890</p>"
+              data-html={true}
+              data-for="a_6"
             ></div>
             <div
               className="point rusia tippy"
-              title="<p className='text-center' style='color:white'>Rusia</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Rusia</br>+1234567890</p>"
+              data-html={true}
+              data-for="a_7"
             ></div>
             <div
               className="point china tippy"
-              title="<p className='text-center' style='color:white'>China</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>China</br>+1234567890</p>"
+              data-html={true}
+              data-for="a_8"
             ></div>
             <div
               className="point japon tippy"
-              title="<p className='text-center' style='color:white'>Japon</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Japon</br>+1234567890</p>"
+              data-html={true}
+              data-for="a_9"
             ></div>
           </div>
         </div>
       </div>
+      <ReactToolTip id="a_1" />
+      <ReactToolTip id="a_2" />
+      <ReactToolTip id="a_3" />
+      <ReactToolTip id="a_4" />
+      <ReactToolTip id="a_5" />
+      <ReactToolTip id="a_6" />
+      <ReactToolTip id="a_7" />
+      <ReactToolTip id="a_8" />
+      <ReactToolTip id="a_9" />
     </>
   );
 };
