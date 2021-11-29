@@ -1,5 +1,5 @@
 import "../styles/cart.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/navbar";
 import Cart from "../models/cart";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,11 @@ const CartPage = () => {
   const [cart, setCart] = useState(new Cart());
 
   const { data, error } = useSWR("http://localhost:3001/checkauth", fetcher);
+  useEffect(() => {
+    if (data) {
+      setCart(JSON.parse(localStorage.getItem(`cart_${data.id}`)));
+    }
+  }, [data]);
   const navigate = useNavigate();
   if (!data) {
     return <Loading />;
@@ -102,9 +107,7 @@ const CartPage = () => {
         </h1>
       )}
 
-      {Object.entries(
-        JSON.parse(localStorage.getItem(`cart_${data.id}`)).items
-      ).map((each) => {
+      {Object.entries(cart.items).map((each) => {
         return (
           <div className="card w-75 container">
             <div className="card-body row">
