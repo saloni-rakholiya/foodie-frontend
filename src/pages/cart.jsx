@@ -78,7 +78,7 @@ const CartPage = () => {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify(JSON.parse(localStorage.getItem(`cart_${data.id}`))),
+      body: JSON.stringify({currcart: JSON.parse(localStorage.getItem(`cart_${data.id}`)), curaddress:"myaddress"}),
     });
     const json = await res.json();
     // console.log(json);

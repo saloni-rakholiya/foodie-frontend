@@ -27,6 +27,8 @@ const History = () => {
   if (!data) {
     return <Loading />;
   }
+
+  console.log(data);
   return (
     <>
       <Navbar isLoggedIn={isAuth.status} isAdmin={isAuth.isAdmin} />
@@ -64,13 +66,13 @@ const History = () => {
                           type="button"
                           class="btn btn-dark"
                           data-toggle="modal"
-                          data-target="#exampleModal"
+                          data-target={"#exampleModal"+_id}
                         >
                           See complete order
                         </button>
                         <div
                           class="modal fade"
-                          id="exampleModal"
+                          id={"exampleModal"+_id}
                           tabindex="-1"
                           role="dialog"
                           aria-labelledby="exampleModalLabel"
@@ -80,6 +82,7 @@ const History = () => {
                             class="modal-dialog modal-dialog-centered"
                             role="document"
                           >
+                            {console.log(cart)}
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">
@@ -100,7 +103,6 @@ const History = () => {
                                 <h3>Total bill: {cart.totalPrice}</h3>
                                 <p>
                                   {Object.entries(cart.items).map((each) => {
-                                    // console.log(each);
                                     return (
                                       <>
                                         <div className="card text-white bg-success mb-3">

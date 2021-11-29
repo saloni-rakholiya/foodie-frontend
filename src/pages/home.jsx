@@ -118,9 +118,9 @@ const HomePage = () => {
                           alt="Card image cap"
                         />
                         <div className="card-body">
-                          <p className="card-text">{title}</p>
+                          <p className="card-text"><b>{title}</b></p>
                           <p className="card-text">{description}</p>
-                          <p className="card-text">{price}</p>
+                          <p className="card-text"><b>{"Rs."+price}</b></p>
                           <p className="card-text">{category}</p>
                           <div className="d-flex justify-content-between align-items-center">
                             {isAuth.status ? (

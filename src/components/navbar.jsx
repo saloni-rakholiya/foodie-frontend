@@ -20,7 +20,7 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
       >
         <b>
           <i
-            className="fa fa-heartbeat"
+            className="fa fa-cutlery"
             style={{ paddingRight: "7px" }}
             aria-hidden="true"
           ></i>
