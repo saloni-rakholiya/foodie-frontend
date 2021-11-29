@@ -137,19 +137,23 @@ const HomePage = () => {
                                 ) : (
                                   <>
                                     <button
-                                      className="btn btn-sm btn-outline-secondary"
+                                      className="btn btn-danger btn-sm btn-outline"
                                       onClick={() => removeClick(product)}
                                     >
+                                      <b>
                                       {" "}
                                       -{" "}
+                                      </b>
                                     </button>{" "}
-                                    <p>{cart.items[_id].qty}</p>{" "}
+                                    <p className="m-2">{cart.items[_id].qty}</p>{" "}
                                     <button
-                                      className="btn btn-sm btn-outline-secondary"
+                                      className="btn btn-success btn-sm btn-outline"
                                       onClick={() => handleClick(product)}
                                     >
+                                      <b>
                                       {" "}
                                       +{" "}
+                                      </b>
                                     </button>
                                   </>
                                 )}
