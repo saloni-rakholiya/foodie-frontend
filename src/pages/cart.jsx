@@ -1,5 +1,5 @@
 import "../styles/cart.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Navbar from "../components/navbar";
 import Cart from "../models/cart";
 import { useNavigate } from "react-router-dom";
@@ -18,13 +18,6 @@ const CartPage = () => {
   if (!data.status) {
     navigate("/");
   }
-
-  // useEffect(() => {
-  //   const cart = localStorage.getItem(`cart_${data.id}`);
-  //   if (cart) {
-  //     setCart(JSON.parse(cart));
-  //   }
-  // }, [data]);
 
   const deleteItem = (product) => {
     const id = product._id;

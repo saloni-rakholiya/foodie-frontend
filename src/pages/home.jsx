@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Cart from "../models/cart";
 import Navbar from "../components/navbar";
 import useSWR from "swr";
@@ -14,18 +14,18 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useState(new Cart());
   const [filter, setFilter] = useState(0);
-  useEffect(() => {
-    const cart = localStorage.getItem(`cart_${isAuth.id}`);
-    if (cart) {
-      setCart(JSON.parse(cart));
-    }
-  }, []);
   const { data, error } = useSWR("http://localhost:3001/getproducts", fetcher);
   if (error) {
     return <h1>Error</h1>;
   }
   if (!isAuth) {
     return <Loading />;
+  }
+  if (isAuth) {
+    const cart = localStorage.getItem(`cart_${isAuth.id}`);
+    if (cart) {
+      setCart(JSON.parse(cart));
+    }
   }
   if (isAuth.status === false) {
     navigate("/");

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Navbar from "../components/navbar";
 import Cart from "../models/cart";
 import { useNavigate } from "react-router-dom";
@@ -8,12 +8,6 @@ import Loading from "../components/loader";
 
 const CheckoutPage = () => {
   const [cart, setCart] = useState(new Cart());
-  useEffect(() => {
-    const cart = localStorage.getItem("cart");
-    if (cart) {
-      setCart(JSON.parse(cart));
-    }
-  }, []);
 
   const { data, error } = useSWR("http://localhost:3001/checkauth", fetcher);
   const navigate = useNavigate();
@@ -22,6 +16,12 @@ const CheckoutPage = () => {
   }
   if (!data.status) {
     navigate("/");
+  }
+  if (data) {
+    const new_cart = localStorage.getItem(`cart_${data.id}`);
+    if (new_cart) {
+      setCart(JSON.parse(new_cart));
+    }
   }
 
   return (
