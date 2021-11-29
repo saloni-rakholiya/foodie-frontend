@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Cart from "../models/cart";
 import Navbar from "../components/navbar";
 import useSWR from "swr";
@@ -11,8 +11,14 @@ const HomePage = () => {
     "http://localhost:3001/checkauth",
     fetcher
   );
-  const navigate = useNavigate();
   const [cart, setCart] = useState(new Cart());
+  useEffect(() => {
+    const cart = localStorage.getItem(`cart_${isAuth.id}`);
+    if (cart) {
+      setCart(JSON.parse(cart));
+    }
+  }, [isAuth]);
+  const navigate = useNavigate();
   const [filter, setFilter] = useState(0);
   const { data, error } = useSWR("http://localhost:3001/getproducts", fetcher);
   if (error) {
@@ -20,12 +26,6 @@ const HomePage = () => {
   }
   if (!isAuth) {
     return <Loading />;
-  }
-  if (isAuth) {
-    const cart = localStorage.getItem(`cart_${isAuth.id}`);
-    if (cart) {
-      setCart(JSON.parse(cart));
-    }
   }
   if (isAuth.status === false) {
     navigate("/");
