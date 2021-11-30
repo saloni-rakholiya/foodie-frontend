@@ -36,6 +36,7 @@ const Admin = () => {
     // console.log(json);
   };
   const [all, setAll] = useState([]);
+  const [query, setQuery] = useState("");
   const { data: isAuth, error: authError } = useSWR(
     "http://localhost:3001/checkauth",
     fetcher
@@ -78,6 +79,16 @@ const Admin = () => {
   return (
     <>
       <Navbar isAdmin={true} isLoggedIn={true} />
+      <div className="d-flex justify-content-center m-2 input-group">
+        <div className="form-outline">
+          <input
+            type="search"
+            placeholder="Search"
+            className="form-control"
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+      </div>
       <div className="album py-5 bg-dark">
         <h1 style={{ color: "white" }}>
           {" "}
@@ -85,96 +96,106 @@ const Admin = () => {
         </h1>
         <div className="container bg-dark">
           <ul className="list-group">
-            {orders.orders.map((order, ind) => {
-              console.log(order);
-              console.log(ind);
-              return (
-                <li className="list-group-item m-3">
-                  <div
-                    className="card-text"
-                    data-toggle="collapse"
-                    data-target={`#a${ind}`}
-                    // aria-controls="1"
-                    type="button"
-                  >
-                    <p className="m-1" style={{ color: "#6D6D6D" }}>
-                      <small>{order._id}</small>
-                    </p>
-                    <h4>View full order!</h4>
-                  </div>
-                  <div className="row justify-content-center align-items-center">
-                    {["Preparing", "On the Way", "Delivered"].map((status) => (
-                      <div
-                        className={`d-flex m-2 justify-content-center card-text ${
-                          all[ind] == status ? "bg-success" : "bg-danger"
-                        }`}
-                        style={thisStyle}
-                      >
-                        <div className="d-flex flex-column justify-content-center">
-                          {status}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="dropdown m-3">
-                    <button
-                      class="btn btn-secondary dropdown-toggle"
-                      type="button"
-                      id="dropdownMenuButton"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      Change Status
-                    </button>
+            {orders.orders
+              .filter((order) => {
+                if (
+                  query === "" ||
+                  order._id.toLowerCase().includes(query.toLowerCase())
+                )
+                  return order;
+              })
+              .map((order, ind) => {
+                console.log(order);
+                console.log(ind);
+                return (
+                  <li className="list-group-item m-3">
                     <div
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton"
+                      className="card-text"
+                      data-toggle="collapse"
+                      data-target={`#a${ind}`}
+                      // aria-controls="1"
+                      type="button"
                     >
-                      <button
-                        className="dropdown-item"
-                        onClick={() => changeStatus(ind, order._id, "prep")}
-                      >
-                        Preparing
-                      </button>
-                      <button
-                        className="dropdown-item"
-                        onClick={() => changeStatus(ind, order._id, "on")}
-                      >
-                        On the way
-                      </button>
-                      <button
-                        className="dropdown-item"
-                        onClick={() => changeStatus(ind, order._id, "del")}
-                      >
-                        Delivered
-                      </button>
+                      <p className="m-1" style={{ color: "#6D6D6D" }}>
+                        <small>{order._id}</small>
+                      </p>
+                      <h4>View full order!</h4>
                     </div>
-                  </div>
-                  <div className="collapse" id={`a${ind}`}>
-                    {Object.entries(order.cart.items).map(([key, c]) => {
-                      // console.log(key, c);
-
-                      const { title } = c.item;
-                      return (
-                        <div className="col m-auto">
-                          <div className="card mb-4 box-shadow">
-                            <div
-                              className="card-body"
-                              style={{ backgroundColor: "#D9D9D9" }}
-                            >
-                              <p className="card-text">{title}</p>
-                              <p className="card-text">Qty: {c.qty}</p>
-                              <p className="card-text">Price: {c.price}</p>
+                    <div className="row justify-content-center align-items-center">
+                      {["Preparing", "On the Way", "Delivered"].map(
+                        (status) => (
+                          <div
+                            className={`d-flex m-2 justify-content-center card-text ${
+                              all[ind] == status ? "bg-success" : "bg-danger"
+                            }`}
+                            style={thisStyle}
+                          >
+                            <div className="d-flex flex-column justify-content-center">
+                              {status}
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </li>
-              );
-            })}
+                        )
+                      )}
+                    </div>
+                    <div className="dropdown m-3">
+                      <button
+                        class="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Change Status
+                      </button>
+                      <div
+                        class="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton"
+                      >
+                        <button
+                          className="dropdown-item"
+                          onClick={() => changeStatus(ind, order._id, "prep")}
+                        >
+                          Preparing
+                        </button>
+                        <button
+                          className="dropdown-item"
+                          onClick={() => changeStatus(ind, order._id, "on")}
+                        >
+                          On the way
+                        </button>
+                        <button
+                          className="dropdown-item"
+                          onClick={() => changeStatus(ind, order._id, "del")}
+                        >
+                          Delivered
+                        </button>
+                      </div>
+                    </div>
+                    <div className="collapse" id={`a${ind}`}>
+                      {Object.entries(order.cart.items).map(([key, c]) => {
+                        // console.log(key, c);
+
+                        const { title } = c.item;
+                        return (
+                          <div className="col m-auto">
+                            <div className="card mb-4 box-shadow">
+                              <div
+                                className="card-body"
+                                style={{ backgroundColor: "#D9D9D9" }}
+                              >
+                                <p className="card-text">{title}</p>
+                                <p className="card-text">Qty: {c.qty}</p>
+                                <p className="card-text">Price: {c.price}</p>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </div>

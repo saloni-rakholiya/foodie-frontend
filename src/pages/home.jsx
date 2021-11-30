@@ -31,6 +31,7 @@ const HomePage = (props) => {
   }, [isAuth]);
   const navigate = useNavigate();
   const [filter, setFilter] = useState(0);
+  const [query, setQuery] = useState("");
   const { data, error } = useSWR("http://localhost:3001/getproducts", fetcher);
   if (error) {
     return <h1>Error</h1>;
@@ -90,6 +91,16 @@ const HomePage = (props) => {
     <>
       <>
         <Navbar isAdmin={isAuth.isAdmin} isLoggedIn={isAuth.status} />
+        <div className="d-flex justify-content-center m-2 input-group">
+          <div className="form-outline">
+            <input
+              type="search"
+              placeholder="Search"
+              className="form-control"
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+        </div>
         <div className="d-flex bg-light pt-3 pb-3 justify-content-start">
           {categories.map((category, ind) => {
             return (
@@ -111,8 +122,13 @@ const HomePage = (props) => {
             <div className="row">
               {data.products
                 .filter((product) => {
-                  if (categories[filter] === "All") return product;
-                  if (product.category === categories[filter]) return product;
+                  if (
+                    query === "" ||
+                    product.title.toLowerCase().includes(query.toLowerCase())
+                  ) {
+                    if (categories[filter] === "All") return product;
+                    if (product.category === categories[filter]) return product;
+                  }
                 })
                 .map((product) => {
                   const {
