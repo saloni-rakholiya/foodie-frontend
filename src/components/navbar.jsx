@@ -85,7 +85,7 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
           {isLoggedIn ? (
             <li className="nav-item">
               <Link className="nav-link" to="/history" style={thisStyle}>
-                History
+                Orders
               </Link>
             </li>
           ) : (

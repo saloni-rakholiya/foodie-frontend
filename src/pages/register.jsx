@@ -17,17 +17,21 @@ const RegisterPage = () => {
   const submitForm = async (e) => {
     e.preventDefault();
     const regexString = /[0-9^\w\s]/;
-    if (name.match(regexString)) {
+    if(name.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/)||name.match(".*\\d.*"))
+    {
       toast.error("Name can't have numbers or special characters!", {
-        position: toast.POSITION.BOTTOM_LEFT,
+        position: toast.POSITION.BOTTOM_LEFT
       });
-    } else if (city.match(regexString)) {
+    }
+    else if(city.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/)||city.match(".*\\d.*"))
+    {
       toast.error("City name can't have numbers or special characters!", {
-        position: toast.POSITION.BOTTOM_LEFT,
+        position: toast.POSITION.BOTTOM_LEFT
       });
-    } else if (state.match(regexString)) {
+    } else if(state.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/)||state.match(".*\\d.*"))
+    {
       toast.error("State can't have numbers or special characters!", {
-        position: toast.POSITION.BOTTOM_LEFT,
+        position: toast.POSITION.BOTTOM_LEFT
       });
     } else {
       const res = await fetch("http://localhost:3001/register", {
@@ -187,7 +191,7 @@ const RegisterPage = () => {
                 </small>
               </p>
 
-              <p style={{ color: "#a1aeca" }}>
+              {/* <p style={{ color: "#a1aeca" }}>
                 Password strength:{" "}
                 {password.length >= 6 &&
                 password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/) != null &&
@@ -199,6 +203,15 @@ const RegisterPage = () => {
                 ) : (
                   <span style={{ color: "red" }}>Weak</span>
                 )}
+              </p> */}
+
+               <p style={{ color: "#a1aeca" }}>Password strength: {
+              (password.length>=6 && password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/)!=null && password.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/)!=null)?
+              <span style={{ color: "#449900" }}>Strong</span>
+              :((password.length>=6 && password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/)!=null)?
+              <span style={{ color: "blue" }}>Medium</span>:
+              <span style={{ color: "red" }}>Weak</span>)
+              }
               </p>
             </div>
           </div>
