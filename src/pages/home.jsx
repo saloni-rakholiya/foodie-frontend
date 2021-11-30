@@ -1,16 +1,26 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Cart from "../models/cart";
 import Navbar from "../components/navbar";
 import useSWR from "swr";
 import { fetcher } from "../utils";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Loading from "../components/loader";
 
-const HomePage = () => {
+const HomePage = (props) => {
+  console.log(props);
   const { data: isAuth, error: authError } = useSWR(
     "http://localhost:3001/checkauth",
     fetcher
   );
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state) {
+      toast.info("Logged In", { position: toast.POSITION.BOTTOM_LEFT });
+      delete location.state;
+    }
+  }, [location]);
   const [cart, setCart] = useState(new Cart());
   useEffect(() => {
     if (isAuth) {
@@ -171,6 +181,7 @@ const HomePage = () => {
           </div>
         </div>
       </>
+      <ToastContainer />
     </>
   );
 };

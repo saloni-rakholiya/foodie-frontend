@@ -46,7 +46,7 @@ const LoginPage = () => {
       if (!localStorage.getItem(`cart_${json.id}`)) {
         localStorage.setItem(`cart_${json.id}`, JSON.stringify(new Cart()));
       }
-      navigate("/home");
+      navigate("/home", { state: { isAuth: true } });
     }
     // console.log(json);
   };
@@ -70,7 +70,9 @@ const LoginPage = () => {
     <>
       <body>
         <Navbar />
-        <h3 className="text-center mt-5" style={{color:"white"}}>Login</h3>
+        <h3 className="text-center mt-5" style={{ color: "white" }}>
+          Login
+        </h3>
 
         <div>
           <form
@@ -79,7 +81,9 @@ const LoginPage = () => {
           >
             <div className="form-row text-center text-center">
               <div className="form-group col-md-6 text-center m-auto p-2">
-                <label for="username" style={{color:"white"}}>Email</label>
+                <label for="username" style={{ color: "white" }}>
+                  Email
+                </label>
                 <input
                   type="email"
                   className="form-control mb-3"
@@ -96,7 +100,9 @@ const LoginPage = () => {
             </div>
             <div className="form-row text-center">
               <div className="form-group col-md-6 text-center m-auto p-2">
-                <label for="password" style={{color:"white"}}>Password</label>
+                <label for="password" style={{ color: "white" }}>
+                  Password
+                </label>
                 <input
                   type={passwordShown ? "text" : "password"}
                   className="form-control"
@@ -121,9 +127,12 @@ const LoginPage = () => {
             </button>
           </form>
 
-          <p className="text-center" style={{color:"white"}}>
-            Don't Have an Account? <Link to="/register" style={{color:"#88DDFF"}}>Click Here</Link> to
-            Create One!
+          <p className="text-center" style={{ color: "white" }}>
+            Don't Have an Account?{" "}
+            <Link to="/register" style={{ color: "#88DDFF" }}>
+              Click Here
+            </Link>{" "}
+            to Create One!
           </p>
         </div>
         <ToastContainer/>
