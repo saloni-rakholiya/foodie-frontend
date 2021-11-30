@@ -5,8 +5,7 @@ import useSWR from "swr";
 import Navbar from "../components/navbar";
 import Cart from "../models/cart";
 import Loading from "../components/loader";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -146,7 +145,6 @@ const LoginPage = () => {
             to Create One!
           </p>
         </div>
-        <ToastContainer />
       </body>
     </>
   );

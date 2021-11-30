@@ -68,6 +68,15 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
           ) : (
             <></>
           )}
+          {isLoggedIn ? (
+            <li className="nav-item">
+              <Link className="nav-link" to="/buildpizza" style={thisStyle}>
+                Build Your Own Pizza
+              </Link>
+            </li>
+          ) : (
+            <></>
+          )}
           <li className="nav-item">
             <Link className="nav-link" to="/contact" style={thisStyle}>
               Contact
