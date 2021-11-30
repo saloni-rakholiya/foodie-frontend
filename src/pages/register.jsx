@@ -25,7 +25,7 @@ const RegisterPage = () => {
     });
     const json = await res.json();
     // console.log(json);
-    navigate("/");
+    navigate("/login");
   };
   const { data, error } = useSWR("http://localhost:3001/checkauth", (url) =>
     fetch(url, {
@@ -54,12 +54,16 @@ const RegisterPage = () => {
     <>
       <body>
         <Navbar />
-        <h3 className="text-center" style={{color:"white"}}>Register</h3>
+        <h3 className="text-center" style={{ color: "white" }}>
+          Register
+        </h3>
 
         <form className="align-items-center text-center" onSubmit={submitForm}>
           <div className=" w-50 form-row text-center m-auto">
             <div className="form-group col-md-12">
-              <label for="name" style={{color:"white"}}>Name</label>
+              <label for="name" style={{ color: "white" }}>
+                Name
+              </label>
               <input
                 type="name"
                 className="form-control"
@@ -74,7 +78,9 @@ const RegisterPage = () => {
 
           <div className="w-50 form-row text-center m-auto">
             <div className="form-group col-md-12">
-              <label for="city" style={{color:"white"}}>City</label>
+              <label for="city" style={{ color: "white" }}>
+                City
+              </label>
               <input
                 type="city"
                 className="form-control"
@@ -89,7 +95,9 @@ const RegisterPage = () => {
 
           <div className="w-50 form-row text-center m-auto">
             <div className="form-group col-md-12">
-              <label for="state" style={{color:"white"}}>State</label>
+              <label for="state" style={{ color: "white" }}>
+                State
+              </label>
               <input
                 type="state"
                 className="form-control"
@@ -104,7 +112,9 @@ const RegisterPage = () => {
 
           <div className="w-50 form-row text-center m-auto">
             <div className="form-group col-md-12">
-              <label for="username" style={{color:"white"}}>Email</label>
+              <label for="username" style={{ color: "white" }}>
+                Email
+              </label>
               <input
                 type="email"
                 className="form-control"
@@ -119,7 +129,9 @@ const RegisterPage = () => {
 
           <div className="w-50 form-row text-center m-auto">
             <div className="form-group col-md-12">
-              <label for="password" style={{color:"white"}}>Password</label>
+              <label for="password" style={{ color: "white" }}>
+                Password
+              </label>
               <input
                 type="password"
                 className="form-control"
@@ -137,8 +149,12 @@ const RegisterPage = () => {
           </button>
         </form>
 
-        <p className="text-center" style={{color:"white"}}>
-          Already Have an Account? <Link to="/" style={{color:"#88DDFF"}}>Click Here</Link> to Login!
+        <p className="text-center" style={{ color: "white" }}>
+          Already Have an Account?{" "}
+          <Link to="/" style={{ color: "#88DDFF" }}>
+            Click Here
+          </Link>{" "}
+          to Login!
         </p>
       </body>
     </>

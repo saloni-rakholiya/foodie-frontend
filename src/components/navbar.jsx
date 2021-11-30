@@ -14,7 +14,7 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
     <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
       <Link
         className="navbar-brand"
-        to="/welcome"
+        to="/"
         id="companyName"
         style={{ color: "#E7F3FF", fontFamily: "Raleway, sans-serif" }}
       >
@@ -79,15 +79,6 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
               About
             </Link>
           </li>
-          {isAdmin ? (
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin" style={thisStyle}>
-                Admin Page
-              </Link>
-            </li>
-          ) : (
-            <></>
-          )}
           {isLoggedIn ? (
             <li
               className="nav-item nav-link"
@@ -102,10 +93,40 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
             </li>
           ) : (
             <li className="nav-item">
-              <Link className="nav-link" to="/" style={thisStyle}>
+              <Link className="nav-link" to="/login" style={thisStyle}>
                 Login
               </Link>
             </li>
+          )}
+          {isAdmin ? (
+            <li className="nav-item">
+              <div className="dropdown">
+                <div
+                  className="nav-link"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style={thisStyle}
+                  type="button"
+                >
+                  Admin Actions
+                </div>
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton"
+                >
+                  <Link className="nav-item nav-link text-dark" to="/admin">
+                    All Orders
+                  </Link>
+                  <Link className="nav-item nav-link text-dark" to="/addItem">
+                    Add Item
+                  </Link>
+                </div>
+              </div>
+            </li>
+          ) : (
+            <></>
           )}
         </ul>
       </div>

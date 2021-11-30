@@ -22,13 +22,12 @@ const History = () => {
     return <Loading />;
   }
   if (isAuth.status === false) {
-    navigate("/");
+    navigate("/login");
   }
   if (!data) {
     return <Loading />;
   }
 
-  console.log(data);
   return (
     <>
       <Navbar isLoggedIn={isAuth.status} isAdmin={isAuth.isAdmin} />
@@ -50,6 +49,7 @@ const History = () => {
                 name,
                 paymentId,
               } = product;
+              // console.log(product);
               return (
                 <div className="col-12 m-2">
                   <div className="card mb-4 box-shadow">
@@ -58,21 +58,48 @@ const History = () => {
                       <p className="card-text">{date}</p>
                       <h3 className="card-text">{time}</h3>
                       <p className="card-text">{address}</p>
-                      {preparing && <h4 className="card-text" style={{color:"#FF0202"}}>Preparing! <i class="fa fa-cutlery" style={{color:"black"}} aria-hidden="true"></i></h4>}
-                      {ontheway && <h4 className="card-text" style={{color:"#EDB701"}}>On the way! <i class="fa fa-truck" style={{color:"black"}} aria-hidden="true"></i></h4>}
-                      {delivered && <h4 className="card-text" style={{color:"#66AA33"}}>Delivered! <i class="fa fa-credit-card-alt" style={{color:"black"}} aria-hidden="true"></i></h4>}
+                      {preparing && (
+                        <h4 className="card-text" style={{ color: "#FF0202" }}>
+                          Preparing!{" "}
+                          <i
+                            class="fa fa-cutlery"
+                            style={{ color: "black" }}
+                            aria-hidden="true"
+                          ></i>
+                        </h4>
+                      )}
+                      {ontheway && (
+                        <h4 className="card-text" style={{ color: "#EDB701" }}>
+                          On the way!{" "}
+                          <i
+                            class="fa fa-truck"
+                            style={{ color: "black" }}
+                            aria-hidden="true"
+                          ></i>
+                        </h4>
+                      )}
+                      {delivered && (
+                        <h4 className="card-text" style={{ color: "#66AA33" }}>
+                          Delivered!{" "}
+                          <i
+                            class="fa fa-credit-card-alt"
+                            style={{ color: "black" }}
+                            aria-hidden="true"
+                          ></i>
+                        </h4>
+                      )}
                       <div className="d-flex justify-content-between align-items-center">
                         <button
                           type="button"
                           class="btn btn-dark"
                           data-toggle="modal"
-                          data-target={"#exampleModal"+_id}
+                          data-target={"#exampleModal" + _id}
                         >
                           See complete order
                         </button>
                         <div
                           class="modal fade"
-                          id={"exampleModal"+_id}
+                          id={"exampleModal" + _id}
                           tabindex="-1"
                           role="dialog"
                           aria-labelledby="exampleModalLabel"
@@ -82,7 +109,6 @@ const History = () => {
                             class="modal-dialog modal-dialog-centered"
                             role="document"
                           >
-                            {console.log(cart)}
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">
@@ -98,7 +124,7 @@ const History = () => {
                                 </button>
                               </div>
                               <div class="modal-body">
-                                {/* {console.log(cart)} */}
+                                {console.log(_id, cart.items)}
                                 <h3>{cart.totalQty} items</h3>
                                 <h3>Total bill: {cart.totalPrice}</h3>
                                 <p>
@@ -118,7 +144,6 @@ const History = () => {
                                                 {"Rs. " + each[1].item.price}
                                               </p>
                                               <p>{each[1].item.title}</p>
-                                              {/* <p>{each[1].item.description}</p> */}
                                             </div>
                                           </div>
                                         </div>

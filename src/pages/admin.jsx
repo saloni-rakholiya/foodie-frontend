@@ -59,7 +59,7 @@ const Admin = () => {
     return <Loading />;
   }
   if (!isAuth.status) {
-    navigate("/");
+    navigate("/login");
   }
   if (!isAuth.isAdmin) {
     navigate("/home");

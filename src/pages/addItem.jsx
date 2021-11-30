@@ -18,6 +18,7 @@ const AddItem = () => {
   const [price, setPrice] = useState(0);
   const [category, setCategory] = useState("");
   const [file, setFile] = useState({});
+  const [fileName, setFileName] = useState("Choose File");
   if (authError) {
     return <h1>Error</h1>;
   }
@@ -25,7 +26,7 @@ const AddItem = () => {
     return <Loading />;
   }
   if (!isAuth.status) {
-    navigate("/");
+    navigate("/login");
   }
   if (!isAuth.isAdmin) {
     navigate("/home");
@@ -132,22 +133,28 @@ const AddItem = () => {
           </div>
         </div>
         <div className="form-row text-center">
-          <div className="form-group col-md-6 text-center m-auto p-2">
-            <label for="file">Image</label>
-            <input
-              type="file"
-              className="form-control"
-              id="file"
-              name="file"
-              placeholder="Image"
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-              }}
-            />
+          <div className="input-group mb-3 col-md-6 p-2 m-auto form-group">
+            <div className="input-group-prepend">
+              <span className="input-group-text">Upload</span>
+            </div>
+            <div className="custom-file">
+              <input
+                type="file"
+                className="custom-file-input"
+                id="inputGroupFile01"
+                onChange={(e) => {
+                  setFile(e.target.files[0]);
+                  setFileName(e.target.files[0].name);
+                }}
+              />
+              <label className="custom-file-label" for="inputGroupFile01">
+                {fileName}
+              </label>
+            </div>
           </div>
         </div>
         <button type="submit" className="btn btn-dark m-1">
-          Sign in
+          Add Item
         </button>
       </form>
     </>

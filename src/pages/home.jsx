@@ -28,7 +28,7 @@ const HomePage = () => {
     return <Loading />;
   }
   if (isAuth.status === false) {
-    navigate("/");
+    navigate("/login");
   }
   if (!data) {
     return <Loading />;
@@ -118,9 +118,13 @@ const HomePage = () => {
                           alt="Card image cap"
                         />
                         <div className="card-body">
-                          <p className="card-text"><b>{title}</b></p>
+                          <p className="card-text">
+                            <b>{title}</b>
+                          </p>
                           <p className="card-text">{description}</p>
-                          <p className="card-text"><b>{"Rs."+price}</b></p>
+                          <p className="card-text">
+                            <b>{"Rs." + price}</b>
+                          </p>
                           <p className="card-text">{category}</p>
                           <div className="d-flex justify-content-between align-items-center">
                             {isAuth.status ? (
@@ -140,20 +144,14 @@ const HomePage = () => {
                                       className="btn btn-danger btn-sm btn-outline"
                                       onClick={() => removeClick(product)}
                                     >
-                                      <b>
-                                      {" "}
-                                      -{" "}
-                                      </b>
+                                      <b> - </b>
                                     </button>{" "}
                                     <p className="m-2">{cart.items[_id].qty}</p>{" "}
                                     <button
                                       className="btn btn-success btn-sm btn-outline"
                                       onClick={() => handleClick(product)}
                                     >
-                                      <b>
-                                      {" "}
-                                      +{" "}
-                                      </b>
+                                      <b> + </b>
                                     </button>
                                   </>
                                 )}

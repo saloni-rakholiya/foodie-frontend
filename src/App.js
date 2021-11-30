@@ -18,7 +18,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" exact element={<LoginPage />} />
+          <Route path="/login" exact element={<LoginPage />} />
           <Route path="/register" exact element={<RegisterPage />} />
           <Route path="/home" exact element={<HomePage />} />
           <Route path="/about" exact element={<About />} />
@@ -27,9 +27,9 @@ function App() {
           <Route path="/history" exact element={<History />} />
           <Route path="/admin" exact element={<Admin />} />
           <Route path="/checkout" exact element={<CheckoutPage />} />
-          <Route path="/welcome" exact element={<WelcomePage />} />
+          <Route path="/" exact element={<WelcomePage />} />
           <Route path="/addItem" exact element={<AddItem />} />
-          <Route path="/successful" exact element={<SuccessCheckoutPage/>}/>
+          <Route path="/successful" exact element={<SuccessCheckoutPage />} />
         </Routes>
       </Router>
     </div>

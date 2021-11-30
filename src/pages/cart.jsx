@@ -21,7 +21,7 @@ const CartPage = () => {
     return <Loading />;
   }
   if (!data.status) {
-    navigate("/");
+    navigate("/login");
   }
 
   const deleteItem = (product) => {
@@ -71,19 +71,7 @@ const CartPage = () => {
   };
 
   const checkoutcart = async () => {
-    const res = await fetch("http://localhost:3001/checkout", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({currcart: JSON.parse(localStorage.getItem(`cart_${data.id}`)), curaddress:"myaddress"}),
-    });
-    const json = await res.json();
-    // console.log(json);
-    localStorage.setItem(`cart_${data.id}`, JSON.stringify(new Cart()));
-    setCart(new Cart());
+    navigate("/checkout");
   };
 
   if (data) {

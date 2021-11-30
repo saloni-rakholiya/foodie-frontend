@@ -17,15 +17,9 @@ const WelcomePage = () => {
   if (!isAuth) {
     return <Loading />;
   }
-  if (isAuth.status === false) {
-    navigate("/");
-  }
-  if (!isAuth) {
-    return <Loading />;
-  }
   return (
     <>
-      <Navbar isAdmin={isAuth.isAdmin} isLoggedIn={true} />
+      <Navbar isAdmin={isAuth.isAdmin} isLoggedIn={isAuth.status} />
       <div class="container">
         <div class="row">
           <div class="col">

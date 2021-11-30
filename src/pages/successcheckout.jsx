@@ -15,15 +15,20 @@ const SuccessCheckoutPage = () => {
     return <Loading />;
   }
   if (!data.status) {
-    navigate("/");
+    navigate("/login");
   }
 
   return (
     <>
       <Navbar isAdmin={data.isAdmin} isLoggedIn={true} />
-      <h1 className="m-5 p-5" style={{ color: "white", fontSize: "50px" }}>Successfully Placed Order!</h1>
+      <h1 className="m-5 p-5" style={{ color: "white", fontSize: "50px" }}>
+        Successfully Placed Order!
+      </h1>
 
-      <a href="/history" className="m-5" style={{ color: "white" }}> <i>Check out all your orders! </i></a>
+      <a href="/history" className="m-5" style={{ color: "white" }}>
+        {" "}
+        <i>Check out all your orders! </i>
+      </a>
     </>
   );
 };
