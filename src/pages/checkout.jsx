@@ -49,7 +49,7 @@ const CheckoutPage = () => {
       credentials: "include",
       body: JSON.stringify({
         currcart: JSON.parse(localStorage.getItem(`cart_${data.id}`)),
-        curaddress: "myaddress",
+        curaddress: textstate,
       }),
     });
     const json = await res.json();

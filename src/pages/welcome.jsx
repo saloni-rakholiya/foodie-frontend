@@ -60,7 +60,7 @@ const WelcomePage = () => {
           <div class="col text-center p-5">
             <h1 className="foodieheading m-5">FOODIE</h1>
             <p className="foodielittleheading">An Oasis Of Pleasure </p>
-            <a href="/" class="">
+            <a href="/home" class="">
               Get started!
             </a>
           </div>
