@@ -16,6 +16,7 @@ import EditItem from "./pages/editExisting.jsx";
 import DummyMenu from "./pages/dummymenu.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import BuildPizza from "./pages/buildpizza.jsx";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <ToastContainer />
       <Router>
         <Routes>
+          <Route path="/buildpizza" exact element={<BuildPizza/>} />
           <Route path="/login" exact element={<LoginPage />} />
           <Route path="/register" exact element={<RegisterPage />} />
           <Route path="/home" exact element={<HomePage />} />
