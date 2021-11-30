@@ -12,13 +12,13 @@ import CheckoutPage from "./pages/checkout";
 import WelcomePage from "./pages/welcome";
 import AddItem from "./pages/addItem";
 import SuccessCheckoutPage from "./pages/successcheckout";
-import {ToastProvider, useToasts } from 'react-toast-notifications';
+
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/login" exact element={<ToastProvider><LoginPage /></ToastProvider>} />
+          <Route path="/login" exact element={<LoginPage />} />
           <Route path="/register" exact element={<RegisterPage />} />
           <Route path="/home" exact element={<HomePage />} />
           <Route path="/about" exact element={<About />} />

@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import Navbar from "../components/navbar";
 import Loading from "../components/loader";
+import {ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterPage = () => {
   const [city, setCity] = useState("");
@@ -25,8 +27,17 @@ const RegisterPage = () => {
     });
     const json = await res.json();
     // console.log(json);
+    if(!json.status){
+      toast.error("User already exists!", {
+        position: toast.POSITION.BOTTOM_LEFT
+      });
+    }
+    else{
     navigate("/login");
+    }
   };
+
+
   const { data, error } = useSWR("http://localhost:3001/checkauth", (url) =>
     fetch(url, {
       mode: "cors",
@@ -72,6 +83,7 @@ const RegisterPage = () => {
                 placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                required
               />
             </div>
           </div>
@@ -88,6 +100,7 @@ const RegisterPage = () => {
                 name="city"
                 placeholder="City"
                 value={city}
+                required
                 onChange={(e) => setCity(e.target.value)}
               />
             </div>
@@ -105,6 +118,7 @@ const RegisterPage = () => {
                 name="state"
                 placeholder="State"
                 value={state}
+                required
                 onChange={(e) => setState(e.target.value)}
               />
             </div>
@@ -122,6 +136,7 @@ const RegisterPage = () => {
                 name="username"
                 placeholder="Email"
                 value={email}
+                required
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -139,8 +154,21 @@ const RegisterPage = () => {
                 name="password"
                 placeholder="Password"
                 value={password}
+                required
                 onChange={(e) => setPassword(e.target.value)}
               />
+
+              {/* <p style={{ color: "#a1aeca" }}>Password strength: {(password.length>=6 && password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/)!=null)?<span style={{ color: "#449900" }}>Strong</span>:<span style={{ color: "red" }}>Weak</span>}</p> */}
+
+              <p style={{ color: "#a1aeca" }}>Password strength: {
+              (password.length>=6 && password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/)!=null && password.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/)!=null)?
+              <span style={{ color: "#449900" }}>Strong</span>
+              :((password.length>=6 && password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/)!=null)?
+              <span style={{ color: "blue" }}>Medium</span>:
+              <span style={{ color: "red" }}>Weak</span>)
+              }
+              </p>
+
             </div>
           </div>
 
@@ -156,6 +184,7 @@ const RegisterPage = () => {
           </Link>{" "}
           to Login!
         </p>
+        <ToastContainer/>
       </body>
     </>
   );
