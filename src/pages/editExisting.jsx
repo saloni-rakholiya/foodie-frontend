@@ -21,6 +21,37 @@ const EditItem = () => {
     "http://localhost:3001/getproducts",
     fetcher
   );
+
+  const deleteitem= async()=>{
+    try {
+      const res = await fetch("http://localhost:3001/deleteitem", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+        "Content-Type": "application/json",
+      },
+        credentials: "include",
+        body: JSON.stringify({id}),
+      });
+      const json = await res.json();
+      if(json){
+        toast.success("Item Successfully deleted!", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+      }
+      else {
+        toast.error("Item couldn't be deleted!", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+      }
+    } catch (err) {
+      toast.error("Item couldn't be deleted!", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+      console.log(err);
+    }
+  }
+
   const submitForm = async (e) => {
     e.preventDefault();
     const formdata = new FormData();
@@ -32,6 +63,9 @@ const EditItem = () => {
       (photoUrl == "" && isFile === false) ||
       price < 0
     ) {
+      toast.error("You need to fill all fields!", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
       return;
     }
     formdata.append("id", id);
@@ -215,6 +249,9 @@ const EditItem = () => {
                 </div>
                 <button type="submit" className="btn btn-danger m-1">
                   Add Item
+                </button>
+                <button onClick={deleteitem} className="btn btn-danger m-1">
+                  Delete Item
                 </button>
               </form>
             </>
