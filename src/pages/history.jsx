@@ -31,7 +31,7 @@ const History = () => {
   return (
     <>
       <Navbar isLoggedIn={isAuth.status} isAdmin={isAuth.isAdmin} />
-      <h1>Previous orders</h1>
+      <h1 className="mt-2">Previous orders</h1>
       <div className="album py-5" style={{ backgroundColor: "#212529" }}>
         <div className="container">
           <div className="row">
@@ -51,10 +51,10 @@ const History = () => {
               } = product;
               // console.log(product);
               return (
-                <div className="col-12 m-2">
+                <div className="col-12 m-1">
                   <div className="card mb-4 box-shadow">
-                    <div className="card-body">
-                      <h3>Order</h3>
+                    <div className="card-body" style={{backgroundColor:"#FADBD8 "}}>
+                      <h3 style={{color:"#E74C3C"}}><i class="fa fa-bell" style={{color:"#E74C3C"}} aria-hidden="true"></i> Order</h3>
                       <p className="card-text">{date}</p>
                       <h3 className="card-text">{time}</h3>
                       <p className="card-text">{address}</p>
@@ -109,9 +109,9 @@ const History = () => {
                             class="modal-dialog modal-dialog-centered"
                             role="document"
                           >
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">
+                            <div class="modal-content" style={{backgroundColor:"#317873"}}>
+                              <div class="modal-header" style={{backgroundColor:"#317873"}}>
+                                <h5 class="modal-title" id="exampleModalLabel" style={{backgroundColor:"#317873"}}>
                                   Order details
                                 </h5>
                                 <button
@@ -123,17 +123,18 @@ const History = () => {
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                               </div>
-                              <div class="modal-body">
+                              <div style={{backgroundColor:"#317873"}} class="modal-body">
                                 {console.log(_id, cart.items)}
-                                <h3>{cart.totalQty} items</h3>
-                                <h3>Total bill: {cart.totalPrice}</h3>
+                                <h1 style={{color:"white"}}> <b>{cart.totalQty} items</b></h1>
+                                <h1 style={{color:"white"}}><b>Total bill: {cart.totalPrice}</b></h1>
                                 <p>
                                   {Object.entries(cart.items).map((each) => {
                                     return (
                                       <>
-                                        <div className="card text-white bg-success mb-3">
+                                        <div className="card text-white mb-3">
                                           <div className="card-body row">
                                             <div className="text-center m-auto mt-1">
+                                              <p><b>{each[1].item.title}</b></p>
                                               <p>Quantity: {each[1].qty}</p>
                                               <img
                                                 src={each[1].item.imagePath}
@@ -141,9 +142,9 @@ const History = () => {
                                                 width="95%"
                                               />
                                               <p>
-                                                {"Rs. " + each[1].item.price}
+                                                {"Rs. " + each[1].item.price+ " each"}
                                               </p>
-                                              <p>{each[1].item.title}</p>
+                                             
                                             </div>
                                           </div>
                                         </div>

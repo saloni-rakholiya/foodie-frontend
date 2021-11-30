@@ -143,7 +143,7 @@ const CartPage = () => {
                   </span>
                 </button>
                 <h5 className="text-center">{each[1].qty}</h5>
-                <p className="text-center">{"Rs. " + each[1].item.price}</p>
+                <p className="text-center">{"Rs. " + each[1].item.price+" each"}</p>
               </div>
             </div>
           </div>

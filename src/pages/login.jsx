@@ -49,6 +49,7 @@ const LoginPage = () => {
     const json = await res.json();
     if (!json.status) {
       setClicked(false);
+      navigate("/login", { state: { message: "Wrong Password" } });
     } else {
       if (!localStorage.getItem(`cart_${json.id}`)) {
         localStorage.setItem(`cart_${json.id}`, JSON.stringify(new Cart()));
