@@ -122,6 +122,9 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
                   <Link className="nav-item nav-link text-dark" to="/addItem">
                     Add Item
                   </Link>
+                  <Link className="nav-item nav-link text-dark" to="/edit">
+                    Edit Item
+                  </Link>
                 </div>
               </div>
             </li>

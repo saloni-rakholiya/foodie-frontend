@@ -12,6 +12,7 @@ import CheckoutPage from "./pages/checkout";
 import WelcomePage from "./pages/welcome";
 import AddItem from "./pages/addItem";
 import SuccessCheckoutPage from "./pages/successcheckout";
+import EditItem from "./pages/editExisting.jsx";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/" exact element={<WelcomePage />} />
           <Route path="/addItem" exact element={<AddItem />} />
           <Route path="/successful" exact element={<SuccessCheckoutPage />} />
+          <Route path="/edit" exact element={<EditItem />} />
         </Routes>
       </Router>
     </div>
