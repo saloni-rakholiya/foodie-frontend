@@ -34,7 +34,7 @@ const EditItem = () => {
         body: JSON.stringify({id}),
       });
       const json = await res.json();
-      if(json){
+      if(json && json.status){
         toast.success("Item Successfully deleted!", {
         position: toast.POSITION.BOTTOM_LEFT,
       });
@@ -45,9 +45,6 @@ const EditItem = () => {
       });
       }
     } catch (err) {
-      toast.error("Item couldn't be deleted!", {
-        position: toast.POSITION.BOTTOM_LEFT,
-      });
       console.log(err);
     }
   }
