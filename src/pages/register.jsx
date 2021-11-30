@@ -8,6 +8,7 @@ import {ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterPage = () => {
+  const [passwordShown, setPasswordShown] = useState(false);
   const [city, setCity] = useState("");
   const [name, setName] = useState("");
   const [state, setState] = useState("");
@@ -16,7 +17,26 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const submitForm = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:3001/register", {
+    if(name.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/)||name.match(".*\\d.*"))
+    {
+      toast.error("Name can't have numbers or special characters!", {
+        position: toast.POSITION.BOTTOM_LEFT
+      });
+    }
+    else if(city.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/)||city.match(".*\\d.*"))
+    {
+      toast.error("City name can't have numbers or special characters!", {
+        position: toast.POSITION.BOTTOM_LEFT
+      });
+    } else if(state.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/)||state.match(".*\\d.*"))
+    {
+      toast.error("State can't have numbers or special characters!", {
+        position: toast.POSITION.BOTTOM_LEFT
+      });
+    }
+    else
+    { 
+      const res = await fetch("http://localhost:3001/register", {
       method: "POST",
       mode: "cors",
       headers: {
@@ -34,7 +54,7 @@ const RegisterPage = () => {
     }
     else{
     navigate("/login");
-    }
+    }}
   };
 
 
@@ -60,6 +80,10 @@ const RegisterPage = () => {
       // },
     });
   }
+
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
 
   return (
     <>
@@ -148,7 +172,7 @@ const RegisterPage = () => {
                 Password
               </label>
               <input
-                type="password"
+                type={passwordShown ? "text" : "password"}
                 className="form-control"
                 id="password"
                 name="password"
@@ -157,8 +181,11 @@ const RegisterPage = () => {
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
-
-              {/* <p style={{ color: "#a1aeca" }}>Password strength: {(password.length>=6 && password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/)!=null)?<span style={{ color: "#449900" }}>Strong</span>:<span style={{ color: "red" }}>Weak</span>}</p> */}
+              <p style={{cursor: "pointer", color:"#88DDFF"}}onClick={togglePassword}>
+                  <small>
+                    {passwordShown?"Hide Password":"Show Password"}
+                  </small>
+                </p>
 
               <p style={{ color: "#a1aeca" }}>Password strength: {
               (password.length>=6 && password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/)!=null && password.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/)!=null)?
@@ -179,7 +206,7 @@ const RegisterPage = () => {
 
         <p className="text-center" style={{ color: "white" }}>
           Already Have an Account?{" "}
-          <Link to="/" style={{ color: "#88DDFF" }}>
+          <Link to="/login" style={{ color: "#88DDFF" }}>
             Click Here
           </Link>{" "}
           to Login!

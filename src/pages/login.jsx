@@ -5,18 +5,13 @@ import useSWR from "swr";
 import Navbar from "../components/navbar";
 import Cart from "../models/cart";
 import Loading from "../components/loader";
+import {ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginPage = () => {
-  // const { state: locationState } = useLocation();
-  // if (locationState == null) {
-  //   console.log("No state");
-  // } else {
-  //   console.log(locationState);
-  //   delete locationState.message;
-  //   console.log(locationState);
-  // }
-  // return <h1>Hello</h1>;
+
   const navigate = useNavigate();
+  const [passwordShown, setPasswordShown] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [clicked, setClicked] = useState(false);
@@ -67,6 +62,10 @@ const LoginPage = () => {
     return <Loading />;
   }
 
+   const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+
   return (
     <>
       <body>
@@ -88,6 +87,7 @@ const LoginPage = () => {
                   name="username"
                   placeholder="Email"
                   value={userName}
+                  required
                   onChange={(e) => {
                     setUserName(e.target.value);
                   }}
@@ -98,17 +98,23 @@ const LoginPage = () => {
               <div className="form-group col-md-6 text-center m-auto p-2">
                 <label for="password" style={{color:"white"}}>Password</label>
                 <input
-                  type="password"
+                  type={passwordShown ? "text" : "password"}
                   className="form-control"
                   id="password"
                   name="password"
+                  required
                   placeholder="Password"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
                 />
-              </div>
+                <p style={{cursor: "pointer", color:"#88DDFF"}}onClick={togglePassword}>
+                  <small>
+                    {passwordShown?"Hide Password":"Show Password"}
+                  </small>
+                </p>
+              </div>              
             </div>
             <button type="submit" className="btn btn-dark m-1">
               Sign in
@@ -120,6 +126,7 @@ const LoginPage = () => {
             Create One!
           </p>
         </div>
+        <ToastContainer/>
       </body>
     </>
   );
