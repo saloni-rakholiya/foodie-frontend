@@ -13,9 +13,11 @@ const HomePage = () => {
   );
   const [cart, setCart] = useState(new Cart());
   useEffect(() => {
-    const cart = localStorage.getItem(`cart_${isAuth.id}`);
-    if (cart) {
-      setCart(JSON.parse(cart));
+    if (isAuth) {
+      const cart = localStorage.getItem(`cart_${isAuth.id}`);
+      if (cart) {
+        setCart(JSON.parse(cart));
+      }
     }
   }, [isAuth]);
   const navigate = useNavigate();
