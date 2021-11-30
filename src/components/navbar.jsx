@@ -46,11 +46,19 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
         style={{ marginRight: "5%" }}
       >
         <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
+          {isLoggedIn?(
+            <li className="nav-item">
             <Link className="nav-link" to="/home" style={thisStyle}>
               Menu
             </Link>
           </li>
+          ):(
+            <li className="nav-item">
+            <Link className="nav-link" to="/publicmenu" style={thisStyle}>
+              Menu
+            </Link>
+          </li>
+          )}
           {isLoggedIn ? (
             <li className="nav-item">
               <Link className="nav-link" to="/cart" style={thisStyle}>
