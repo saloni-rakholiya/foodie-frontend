@@ -4,8 +4,7 @@ import Cart from "../models/cart";
 import Navbar from "../components/navbar";
 import useSWR from "swr";
 import { fetcher } from "../utils";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import Loading from "../components/loader";
 
 const HomePage = (props) => {
@@ -16,10 +15,10 @@ const HomePage = (props) => {
   );
   const location = useLocation();
   useEffect(() => {
-    if (location.state) {
-      toast.info("Logged In", { position: toast.POSITION.BOTTOM_LEFT });
-      delete location.state;
-    }
+    if (location.state)
+      toast.info(location.state.message, {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
   }, [location]);
   const [cart, setCart] = useState(new Cart());
   useEffect(() => {
@@ -34,6 +33,9 @@ const HomePage = (props) => {
   const [filter, setFilter] = useState(0);
   const { data, error } = useSWR("http://localhost:3001/getproducts", fetcher);
   if (error) {
+    return <h1>Error</h1>;
+  }
+  if (authError) {
     return <h1>Error</h1>;
   }
   if (!isAuth) {
@@ -127,7 +129,7 @@ const HomePage = (props) => {
                         <img
                           className="card-img-top"
                           src={imagePath}
-                          alt="Card image cap"
+                          alt="Food"
                         />
                         <div className="card-body">
                           <p className="card-text">
@@ -181,7 +183,6 @@ const HomePage = (props) => {
           </div>
         </div>
       </>
-      <ToastContainer />
     </>
   );
 };

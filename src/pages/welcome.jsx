@@ -1,16 +1,25 @@
 import Navbar from "../components/navbar";
+import { Link } from "react-router-dom";
 import "../styles/welcome.css";
 import useSWR from "swr";
 import { fetcher } from "../utils";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Loading from "../components/loader";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const WelcomePage = () => {
-  const navigate = useNavigate();
   const { data: isAuth, error: authError } = useSWR(
     "http://localhost:3001/checkauth",
     fetcher
   );
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state)
+      toast.info(location.state.message, {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+  }, [location]);
   if (authError) {
     return <h1>Error</h1>;
   }
@@ -20,35 +29,35 @@ const WelcomePage = () => {
   return (
     <>
       <Navbar isAdmin={isAuth.isAdmin} isLoggedIn={isAuth.status} />
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <article class="contain">
-              <section class="pizza-hover">
-                <div class="pizza-box">
-                  <div class="pizza-box-side left-side"></div>
-                  <div class="pizza-box-side right-side"></div>
-                  <div class="pizza-box-side front-side"></div>
-                  <div class="pizza-box-side back-side"></div>
-                  <div class="lid">
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <article className="contain">
+              <section className="pizza-hover">
+                <div className="pizza-box">
+                  <div className="pizza-box-side left-side"></div>
+                  <div className="pizza-box-side right-side"></div>
+                  <div className="pizza-box-side front-side"></div>
+                  <div className="pizza-box-side back-side"></div>
+                  <div className="lid">
                     <span>PIZZA</span>
                   </div>
-                  <div class="lid-underside"></div>
-                  <div class="pizza">
-                    <div class="sauce">
-                      <div class="toppings">
-                        <div class="mozzarella"></div>
-                        <div class="mushroom"></div>
-                        <div class="mozzarella"></div>
-                        <div class="basil"></div>
-                        <div class="mozzarella"></div>
-                        <div class="basil"></div>
-                        <div class="mushroom"></div>
-                        <div class="mozzarella"></div>
-                        <div class="mushroom"></div>
-                        <div class="mozzarella"></div>
-                        <div class="basil"></div>
-                        <div class="mozzarella"></div>
+                  <div className="lid-underside"></div>
+                  <div className="pizza">
+                    <div className="sauce">
+                      <div className="toppings">
+                        <div className="mozzarella"></div>
+                        <div className="mushroom"></div>
+                        <div className="mozzarella"></div>
+                        <div className="basil"></div>
+                        <div className="mozzarella"></div>
+                        <div className="basil"></div>
+                        <div className="mushroom"></div>
+                        <div className="mozzarella"></div>
+                        <div className="mushroom"></div>
+                        <div className="mozzarella"></div>
+                        <div className="basil"></div>
+                        <div className="mozzarella"></div>
                       </div>
                     </div>
                   </div>
@@ -57,12 +66,12 @@ const WelcomePage = () => {
             </article>
           </div>
 
-          <div class="col text-center p-5">
+          <div className="col text-center p-5">
             <h1 className="foodieheading m-5">FOODIE</h1>
             <p className="foodielittleheading">An Oasis Of Pleasure </p>
-            <a href="/home" class="">
+            <Link to="/login" className="">
               Get started!
-            </a>
+            </Link>
           </div>
         </div>
       </div>

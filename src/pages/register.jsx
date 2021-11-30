@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import Navbar from "../components/navbar";
 import Loading from "../components/loader";
-import {ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const [passwordShown, setPasswordShown] = useState(false);
@@ -17,46 +16,40 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const submitForm = async (e) => {
     e.preventDefault();
-    if(name.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/)||name.match(".*\\d.*"))
-    {
+    const regexString = /[0-9^\w\s]/;
+    if (name.match(regexString)) {
       toast.error("Name can't have numbers or special characters!", {
-        position: toast.POSITION.BOTTOM_LEFT
+        position: toast.POSITION.BOTTOM_LEFT,
       });
-    }
-    else if(city.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/)||city.match(".*\\d.*"))
-    {
+    } else if (city.match(regexString)) {
       toast.error("City name can't have numbers or special characters!", {
-        position: toast.POSITION.BOTTOM_LEFT
+        position: toast.POSITION.BOTTOM_LEFT,
       });
-    } else if(state.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/)||state.match(".*\\d.*"))
-    {
+    } else if (state.match(regexString)) {
       toast.error("State can't have numbers or special characters!", {
-        position: toast.POSITION.BOTTOM_LEFT
+        position: toast.POSITION.BOTTOM_LEFT,
       });
-    }
-    else
-    { 
+    } else {
       const res = await fetch("http://localhost:3001/register", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({ email, name, city, state, password }),
-    });
-    const json = await res.json();
-    // console.log(json);
-    if(!json.status){
-      toast.error("User already exists!", {
-        position: toast.POSITION.BOTTOM_LEFT
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ email, name, city, state, password }),
       });
+      const json = await res.json();
+      // console.log(json);
+      if (!json.status) {
+        toast.error("User already exists!", {
+          position: toast.POSITION.BOTTOM_LEFT,
+        });
+      } else {
+        navigate("/login", { state: { message: "Registered successfully" } });
+      }
     }
-    else{
-    navigate("/login");
-    }}
   };
-
 
   const { data, error } = useSWR("http://localhost:3001/checkauth", (url) =>
     fetch(url, {
@@ -64,10 +57,14 @@ const RegisterPage = () => {
       credentials: "include",
     })
       .then((res) => res.json())
-      .catch((err) => {
+      .catch((_err) => {
         return { status: false };
       })
   );
+
+  if (error) {
+    return <h1>Error</h1>;
+  }
 
   if (!data) {
     return <Loading />;
@@ -75,9 +72,9 @@ const RegisterPage = () => {
   // console.log(data.status);
   if (data.status) {
     navigate("/home", {
-      // state: {
-      //   message: "Already logged in. Redirecting",
-      // },
+      state: {
+        message: "Already logged in. Redirecting",
+      },
     });
   }
 
@@ -181,21 +178,28 @@ const RegisterPage = () => {
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <p style={{cursor: "pointer", color:"#88DDFF"}}onClick={togglePassword}>
-                  <small>
-                    {passwordShown?"Hide Password":"Show Password"}
-                  </small>
-                </p>
-
-              <p style={{ color: "#a1aeca" }}>Password strength: {
-              (password.length>=6 && password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/)!=null && password.match(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/)!=null)?
-              <span style={{ color: "#449900" }}>Strong</span>
-              :((password.length>=6 && password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/)!=null)?
-              <span style={{ color: "blue" }}>Medium</span>:
-              <span style={{ color: "red" }}>Weak</span>)
-              }
+              <p
+                style={{ cursor: "pointer", color: "#88DDFF" }}
+                onClick={togglePassword}
+              >
+                <small>
+                  {passwordShown ? "Hide Password" : "Show Password"}
+                </small>
               </p>
 
+              <p style={{ color: "#a1aeca" }}>
+                Password strength:{" "}
+                {password.length >= 6 &&
+                password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/) != null &&
+                password.match(/[0-9^\w\s]/) != null ? (
+                  <span style={{ color: "#449900" }}>Strong</span>
+                ) : password.length >= 6 &&
+                  password.match(/^(?=.*[a-zA-Z])(?=.*[0-9])/) != null ? (
+                  <span style={{ color: "blue" }}>Medium</span>
+                ) : (
+                  <span style={{ color: "red" }}>Weak</span>
+                )}
+              </p>
             </div>
           </div>
 
@@ -211,7 +215,6 @@ const RegisterPage = () => {
           </Link>{" "}
           to Login!
         </p>
-        <ToastContainer/>
       </body>
     </>
   );

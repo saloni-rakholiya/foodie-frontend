@@ -46,18 +46,18 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
         style={{ marginRight: "5%" }}
       >
         <ul className="navbar-nav ml-auto">
-          {isLoggedIn?(
+          {isLoggedIn ? (
             <li className="nav-item">
-            <Link className="nav-link" to="/home" style={thisStyle}>
-              Menu
-            </Link>
-          </li>
-          ):(
+              <Link className="nav-link" to="/home" style={thisStyle}>
+                Menu
+              </Link>
+            </li>
+          ) : (
             <li className="nav-item">
-            <Link className="nav-link" to="/publicmenu" style={thisStyle}>
-              Menu
-            </Link>
-          </li>
+              <Link className="nav-link" to="/publicmenu" style={thisStyle}>
+                Menu
+              </Link>
+            </li>
           )}
           {isLoggedIn ? (
             <li className="nav-item">
@@ -92,7 +92,7 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
               className="nav-item nav-link"
               onClick={async () => {
                 await fetcher("http://localhost:3001/logout");
-                navigate("/");
+                navigate("/", { state: { message: "Logged out" } });
               }}
               style={thisStyle}
               type="button"

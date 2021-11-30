@@ -3,9 +3,9 @@ import useSWR from "swr";
 import { fetcher } from "../utils";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import Loading from "../components/loader";
+import { toast } from "react-toastify";
 
 const AddItem = () => {
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ const AddItem = () => {
   const [category, setCategory] = useState("");
   const [file, setFile] = useState({});
   const [fileName, setFileName] = useState("Choose File");
+  const [imgSrc, setImgSrc] = useState("");
   if (authError) {
     return <h1>Error</h1>;
   }
@@ -62,6 +63,9 @@ const AddItem = () => {
       setPrice(0);
       setCategory("");
       setFile({});
+      toast.success("Added successfully", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
     } catch (err) {}
   };
   return (
@@ -145,6 +149,9 @@ const AddItem = () => {
                 onChange={(e) => {
                   setFile(e.target.files[0]);
                   setFileName(e.target.files[0].name);
+                  const reader = new FileReader();
+                  reader.readAsDataURL(e.target.files[0]);
+                  reader.onloadend = (e) => setImgSrc(e.target.result);
                 }}
               />
               <label className="custom-file-label" for="inputGroupFile01">
@@ -153,6 +160,7 @@ const AddItem = () => {
             </div>
           </div>
         </div>
+        {imgSrc !== "" ? <img src={imgSrc} /> : <></>}
         <button type="submit" className="btn btn-dark m-1">
           Add Item
         </button>

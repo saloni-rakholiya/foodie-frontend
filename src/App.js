@@ -14,10 +14,13 @@ import AddItem from "./pages/addItem";
 import SuccessCheckoutPage from "./pages/successcheckout";
 import EditItem from "./pages/editExisting.jsx";
 import DummyMenu from "./pages/dummymenu.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <div className="App">
+      <ToastContainer />
       <Router>
         <Routes>
           <Route path="/login" exact element={<LoginPage />} />

@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
-import Cart from "../models/cart";
 import { useNavigate } from "react-router-dom";
 import { fetcher } from "../utils";
 import useSWR from "swr";
@@ -9,8 +7,12 @@ import React from "react";
 
 const SuccessCheckoutPage = () => {
   const { data, error } = useSWR("http://localhost:3001/checkauth", fetcher);
-
   const navigate = useNavigate();
+
+  if (error) {
+    return <h1>Error</h1>;
+  }
+
   if (!data) {
     return <Loading />;
   }
