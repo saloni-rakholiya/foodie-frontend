@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../components/loader";
 import { useState, useEffect } from "react";
 import Select from "react-select";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditItem = () => {
   const navigate = useNavigate();
@@ -46,6 +48,11 @@ const EditItem = () => {
         body: formdata,
       });
       const json = await res.json();
+      if(json){
+        toast.success("Item Successfully edited!", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -71,6 +78,8 @@ const EditItem = () => {
   return (
     <>
       <Navbar isAdmin={true} isLoggedIn={true} />
+      <h1 className="m-3">Edit Existing Items</h1>
+      <div className="w-50 m-auto">
       <Select
         onChange={(x) => {
           if (x == null) {
@@ -92,6 +101,7 @@ const EditItem = () => {
         isClearable={true}
         isSearchable={true}
       />
+      </div>
       {current === null ? (
         <></>
       ) : (
@@ -104,7 +114,7 @@ const EditItem = () => {
               >
                 <div className="form-row text-center">
                   <div className="form-group col-md-6 text-center m-auto p-2">
-                    <label for="description">Description</label>
+                    <label for="description" style={{color:"white"}}>Description</label>
                     <input
                       type="text"
                       className="form-control"
@@ -120,7 +130,7 @@ const EditItem = () => {
                 </div>
                 <div className="form-row text-center">
                   <div className="form-group col-md-6 text-center m-auto p-2">
-                    <label for="price">Price</label>
+                    <label for="price" style={{color:"white"}}>Price</label>
                     <input
                       type="number"
                       className="form-control"
@@ -136,7 +146,7 @@ const EditItem = () => {
                 </div>
                 <div className="form-row text-center">
                   <div className="form-group col-md-6 text-center m-auto p-2">
-                    <label for="category">Category</label>
+                    <label for="category" style={{color:"white"}}>Category</label>
                     <input
                       type="text"
                       className="form-control"
@@ -151,13 +161,14 @@ const EditItem = () => {
                   </div>
                 </div>
                 <img
-                  className="card-img-top"
+                  className="card-img-top mt-2"
+                  style={{height:"40%", width:"40%"}}
                   src={imgSrc}
                   alt="Card image cap"
                 />
                 <div className="form-row text-center">
                   <div className="form-group col-md-6 text-center m-auto p-2">
-                    <label for="photoUrl">Photo URL</label>
+                    <label for="photoUrl" style={{color:"white"}}>Photo URL</label>
                     <input
                       type="text"
                       className="form-control"
@@ -176,9 +187,6 @@ const EditItem = () => {
                 </div>
                 <div className="form-row text-center">
                   <div className="input-group mb-3 col-md-6 p-2 m-auto form-group">
-                    <div className="input-group-prepend">
-                      <span className="input-group-text">Upload</span>
-                    </div>
                     <div className="custom-file">
                       <input
                         type="file"
@@ -205,7 +213,7 @@ const EditItem = () => {
                     </div>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-dark m-1">
+                <button type="submit" className="btn btn-danger m-1">
                   Add Item
                 </button>
               </form>
@@ -213,6 +221,7 @@ const EditItem = () => {
           }
         </>
       )}
+      <ToastContainer />
     </>
   );
 };

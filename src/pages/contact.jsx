@@ -29,55 +29,55 @@ const Contact = () => {
             <img src="http://res.cloudinary.com/slzr/image/upload/v1500321012/world-map-1500_vvekl5.png" />
             <div
               className="point venezuela tippy"
-              data-tip="<p className='text-center' style='color:white'>Venezuela</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Foodie Venz</br>+1234567890</p>"
               data-for="a_1"
               data-html={true}
             ></div>
             <div
               className="point brasil tippy"
-              data-tip="<p className='text-center' style='color:white'>Brasil </br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Foodie Hub Brasil </br>+1234567890</p>"
               data-html={true}
               data-for="a_2"
             ></div>
             <div
               className="point argentina tippy"
-              data-tip="<p className='text-center' style='color:white'>Argentina </br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Foodie argenti-club </br>+1234567890</p>"
               data-html={true}
               data-for="a_3"
             ></div>
             <div
               className="point mexico tippy"
-              data-tip="<p className='text-center' style='color:white'>Mexico </br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Mexicano foodies </br>+1234567890</p>"
               data-html={true}
               data-for="a_3"
             ></div>
             <div
               className="point usa tippy"
-              data-tip="<p className='text-center' style='color:white'>Estados Unidos</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Estados Unidos Foodie</br>+1234567890</p>"
               data-html={true}
               data-for="a_4"
             ></div>
             <div
               className="point arabia tippy"
-              data-tip="<p className='text-center' style='color:white'>Arabia Saudi</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Foodie Cave</br>+1234567890</p>"
               data-html={true}
               data-for="a_5"
             ></div>
             <div
               className="point turquia tippy"
-              data-tip="<p className='text-center' style='color:white'>Turquía</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Foodie Turquía</br>+1234567890</p>"
               data-html={true}
               data-for="a_6"
             ></div>
             <div
               className="point rusia tippy"
-              data-tip="<p className='text-center' style='color:white'>Rusia</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>Foodie Russos</br>+1234567890</p>"
               data-html={true}
               data-for="a_7"
             ></div>
             <div
               className="point china tippy"
-              data-tip="<p className='text-center' style='color:white'>China</br>+1234567890</p>"
+              data-tip="<p className='text-center' style='color:white'>China-Foodie</br>+1234567890</p>"
               data-html={true}
               data-for="a_8"
             ></div>

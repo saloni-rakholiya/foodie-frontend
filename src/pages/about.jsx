@@ -4,6 +4,7 @@ import useSWR from "swr";
 import { fetcher } from "../utils";
 import Loading from "../components/loader";
 
+
 const About = () => {
   const { data: isAuth, error: authError } = useSWR(
     "http://localhost:3001/checkauth",
@@ -24,23 +25,23 @@ const About = () => {
     <div class="carousel-item active">
       <img class="d-block w-100" src="https://img.grouponcdn.com/deal/2JtNGwxgAFUrGJ22tFxdLtCFpMrW/2J-2048x1229/v1/c870x524.jpg" alt="First slide"/>
       <div class="carousel-caption d-none d-md-block">
-    <h5>FOODIE!</h5>
-    <p style={{color:"white"}}>At ur footstep ,the haven of flavours</p>
+    <h5><mark style={{color:"white", backgroundColor:"black"}}>FOODIE!</mark></h5>
+    <p style={{color:"white"}}> <mark style={{color:"white", backgroundColor:"black"}}>At your footstep ,the haven of flavours</mark></p>
   </div>
    
     </div>
     <div class="carousel-item">
       <img class="d-block w-100" src="https://thumbs.dreamstime.com/b/salmon-arugula-pizza-light-tasty-restaurant-meal-foodie-108642271.jpg" alt="Second slide"/>
       <div class="carousel-caption d-none d-md-block">
-    <h5>Best Service</h5>
-    <p style={{color:"white"}}> Unbeatable prices and offers that u cant resist </p>
+    <h5><mark style={{color:"white", backgroundColor:"black"}}>Best Service</mark></h5>
+    <p style={{color:"white"}}><mark style={{color:"white", backgroundColor:"black"}}> Unbeatable prices and offers that u cant resist </mark></p>
   </div>
     </div>
     <div class="carousel-item">
       <img class="d-block w-100" src="https://miro.medium.com/max/1400/0*oTfm1pTXLxitHHFy.jpg" alt="Third slide"/>
       <div class="carousel-caption d-none d-md-block">
-    <h5>Best Quality</h5>
-    <p style={{color:"white"}}>Made with freshest ingredients from sustainable local farms</p>
+    <h5><mark style={{color:"white", backgroundColor:"black"}}>Best Quality</mark> </h5>
+    <p style={{color:"white"}}><mark style={{color:"white", backgroundColor:"black"}}>Made with freshest ingredients from sustainable local farms</mark></p>
   </div>
     </div>
   </div>

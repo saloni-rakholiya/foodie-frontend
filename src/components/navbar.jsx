@@ -133,13 +133,13 @@ const Navbar = ({ isAdmin = false, isLoggedIn = false }) => {
                   className="dropdown-menu"
                   aria-labelledby="dropdownMenuButton"
                 >
-                  <Link className="nav-item nav-link text-dark" to="/admin">
+                  <Link className="nav-item nav-link text-dark text-center" to="/admin">
                     All Orders
                   </Link>
-                  <Link className="nav-item nav-link text-dark" to="/addItem">
+                  <Link className="nav-item nav-link text-dark text-center" to="/addItem">
                     Add Item
                   </Link>
-                  <Link className="nav-item nav-link text-dark" to="/edit">
+                  <Link className="nav-item nav-link text-dark text-center" to="/edit">
                     Edit Item
                   </Link>
                 </div>

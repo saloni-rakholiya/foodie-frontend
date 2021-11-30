@@ -80,7 +80,7 @@ const Admin = () => {
     <>
       <Navbar isAdmin={true} isLoggedIn={true} />
       <div className="d-flex justify-content-center m-2 input-group">
-        <div className="form-outline">
+        <div className="form-outline w-50">
           <input
             type="search"
             placeholder="Search"
