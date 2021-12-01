@@ -2,7 +2,7 @@ import Navbar from "../components/navbar";
 import useSWR from "swr";
 import { fetcher } from "../utils";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "reactjs-popup/dist/index.css";
 import Loading from "../components/loader";
 import { ToastContainer, toast } from "react-toastify";
@@ -21,17 +21,17 @@ const AddItem = () => {
   const [file, setFile] = useState({});
   const [fileName, setFileName] = useState("Choose Item Image");
   const [imgSrc, setImgSrc] = useState("");
+  useEffect(() => {
+    if (isAuth) {
+      if (!isAuth.status) {
+        navigate("/login", { state: { message: "Not logged in" } });
+      } else if (!isAuth.isAdmin) {
+        navigate("/home", { state: { message: "Not an admin" } });
+      }
+    }
+  }, [isAuth]);
   if (authError) {
     return <h1>Error</h1>;
-  }
-  if (!isAuth) {
-    return <Loading />;
-  }
-  if (!isAuth.status) {
-    navigate("/login");
-  }
-  if (!isAuth.isAdmin) {
-    navigate("/home");
   }
   const submitForm = async (e) => {
     e.preventDefault();
@@ -76,7 +76,9 @@ const AddItem = () => {
       <form onSubmit={submitForm} className="align-items-center text-center">
         <div className="form-row text-center text-center">
           <div className="form-group col-md-6 text-center m-auto p-2">
-            <label for="title" style={{color:"white", fontSize:"20px"}}>Item title</label>
+            <label for="title" style={{ color: "white", fontSize: "20px" }}>
+              Item title
+            </label>
             <input
               type="text"
               className="form-control"
@@ -92,7 +94,12 @@ const AddItem = () => {
         </div>
         <div className="form-row text-center">
           <div className="form-group col-md-6 text-center m-auto p-2">
-            <label for="description" style={{color:"white", fontSize:"20px"}}>Description</label>
+            <label
+              for="description"
+              style={{ color: "white", fontSize: "20px" }}
+            >
+              Description
+            </label>
             <input
               type="text"
               className="form-control"
@@ -108,7 +115,9 @@ const AddItem = () => {
         </div>
         <div className="form-row text-center">
           <div className="form-group col-md-6 text-center m-auto p-2">
-            <label for="price" style={{color:"white", fontSize:"20px"}}>Price</label>
+            <label for="price" style={{ color: "white", fontSize: "20px" }}>
+              Price
+            </label>
             <input
               type="number"
               className="form-control"
@@ -124,7 +133,9 @@ const AddItem = () => {
         </div>
         <div className="form-row text-center">
           <div className="form-group col-md-6 text-center m-auto p-2">
-            <label for="category" style={{color:"white", fontSize:"20px"}}>Category</label>
+            <label for="category" style={{ color: "white", fontSize: "20px" }}>
+              Category
+            </label>
             <input
               type="text"
               className="form-control"
@@ -160,12 +171,20 @@ const AddItem = () => {
           </div>
         </div>
         <div className="container">
-        {imgSrc !== "" ? <img src={imgSrc} className="col" style={{height:"40%", width:"40%"}} /> : <></>}
-        <div className="col">
-        <button type="submit" className="w-25 mt-3 btn btn-primary m-1">
-          Add Item
-        </button>
-        </div>
+          {imgSrc !== "" ? (
+            <img
+              src={imgSrc}
+              className="col"
+              style={{ height: "40%", width: "40%" }}
+            />
+          ) : (
+            <></>
+          )}
+          <div className="col">
+            <button type="submit" className="w-25 mt-3 btn btn-primary m-1">
+              Add Item
+            </button>
+          </div>
         </div>
       </form>
       <ToastContainer />

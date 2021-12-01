@@ -33,6 +33,12 @@ const LoginPage = () => {
     }
   }, [location]);
   const { data, error } = useSWR("http://localhost:3001/checkauth", fetcher);
+  useEffect(() => {
+    if (data) {
+      if (data.status)
+        navigate("/home", { state: { message: "Already logged in" } });
+    }
+  }, [data]);
   // const count = useAppSelector((state) => state.counter.value);
   const submitForm = async (e) => {
     setClicked(true);
@@ -64,7 +70,6 @@ const LoginPage = () => {
     if (!localStorage.getItem(`cart_${data.id}`)) {
       localStorage.setItem(`cart_${data.id}`, JSON.stringify(new Cart()));
     }
-    navigate("/home");
   }
   if (clicked) {
     return <Loading />;

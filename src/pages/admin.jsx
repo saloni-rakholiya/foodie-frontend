@@ -56,14 +56,17 @@ const Admin = () => {
       );
     }
   }, [orders]);
+  useEffect(() => {
+    if (isAuth) {
+      if (!isAuth.status) {
+        navigate("/login", { state: { message: "Not logged in" } });
+      } else if (!isAuth.isAdmin) {
+        navigate("/home", { state: { message: "Not an admin" } });
+      }
+    }
+  }, [isAuth]);
   if (!isAuth) {
     return <Loading />;
-  }
-  if (!isAuth.status) {
-    navigate("/login");
-  }
-  if (!isAuth.isAdmin) {
-    navigate("/home");
   }
   if (!orders) {
     return <Loading />;
